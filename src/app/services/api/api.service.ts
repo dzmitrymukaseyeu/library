@@ -39,7 +39,7 @@ export class ApiService {
     return this.httpClient.get(this.env.apiUrl + 'api/user');
   }
 
-  getBooks(params: {
+  getBooks(params?: {
     id?: string | string[];
     genre?: string;
     title?: string;
