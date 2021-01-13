@@ -1,6 +1,6 @@
 const responseSender = require('../../helpers/response-sender');
 
-const registerHandlerPost = async (req, res) => {
+const signInHandlerPost = async (req, res) => {
     const userToLogIn = req.body;
 
     if (
@@ -15,4 +15,4 @@ const registerHandlerPost = async (req, res) => {
     console.log(req.body);
 };
 
-module.exports = registerHandlerPost;
+module.exports = signInHandlerPost;

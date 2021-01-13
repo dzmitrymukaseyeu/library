@@ -1,0 +1,52 @@
+.mat-expansion-panel-header {
+  height: fit-content;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+::ng-deep {
+  .mat-content {
+    justify-content: space-between;
+  }
+  .mat-expansion-panel-header-title {
+    margin-bottom: 5px;
+  }
+}
+
+.mat-icon-button {
+  align-self: center;
+}
+
+.b-book {
+  &__header {
+    display: flex;
+  }
+  &__logo {
+    width: 100px;
+  }
+
+  &__content {
+    margin-left: 20px;
+
+    & h4 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+  }
+
+  &__link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-btn {
+      display: flex;
+    }
+  }
+}
+
+.b-book__btn {
+  &-edit {
+    margin-right: 15px;
+  }
+}

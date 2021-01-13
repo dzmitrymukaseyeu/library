@@ -1,6 +1,7 @@
+const Books = require('../../database/modals/Books');
 const responseSender = require('../../helpers/response-sender');
 
-const eventsHandlerGet = async (req, res) => {
+const booksHandlerGet = async (req, res) => {
     const id = req.query.id;
     const genre = req.query.genre;
     const title = req.query.title;
@@ -25,8 +26,9 @@ const eventsHandlerGet = async (req, res) => {
           ? responseSender(res, 200, 'Got it!', title)
           : responseSender(res, 404, 'Event not found!');
     }
-
-    responseSender(res, 200, 'Got it!');
+    const books = await Books.find({});
+    console.log(books);
+    responseSender(res, 200, 'Got it!', books);
 };
 
-module.exports = eventsHandlerGet;
+module.exports = booksHandlerGet;

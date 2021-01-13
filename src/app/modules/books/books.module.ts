@@ -6,6 +6,11 @@ import { SearchComponent } from './components/search/search.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { BookComponent } from './components/book/book.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+
+
+
 
 
 @NgModule({
@@ -14,6 +19,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     CommonModule,
     BooksRoutingModule,
     MatExpansionModule,
+    MatButtonModule,
+    MatIconModule,
   ]
 })
 export class BooksModule { }

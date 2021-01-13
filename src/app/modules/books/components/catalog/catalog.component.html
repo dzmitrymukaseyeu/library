@@ -1,7 +1,7 @@
 <section class="s-catalog">
   <div class="container">
     <ul class="l-books">
-      <li class="l-books-item">
+      <li *ngFor="let book of books" class="l-books-item">
         <app-book></app-book>
       </li>
     </ul>

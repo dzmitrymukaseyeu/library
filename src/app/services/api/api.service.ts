@@ -58,7 +58,7 @@ export class ApiService {
     title?: string;
     author?: string;
     published?: string;
-    type?: string;
+    genre?: string;
     description?: string;
     link?: string;
   }) {

@@ -1,6 +1,6 @@
 const responseSender = require('../../helpers/response-sender');
 
-const registerHandlerPost = async (req, res) => {
+const signUpHandlerPost = async (req, res) => {
     const userToSave = req.body;
 
     if (
@@ -16,4 +16,4 @@ const registerHandlerPost = async (req, res) => {
     responseSender(res, 200, 'OK');
 };
 
-module.exports = registerHandlerPost;
+module.exports = signUpHandlerPost;

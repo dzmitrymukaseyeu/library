@@ -13,6 +13,21 @@ const booksHandlerGet = require('./BACKEND/api-routes/books/get');
 const booksHandlerDelete = require('./BACKEND/api-routes/books/delete');
 const booksHandlerPatch = require('./BACKEND/api-routes/books/patch');
 
+const UserSchema = require('./BACKEND/database/modals/User');
+const BooksSchema = require('./BACKEND/database/modals/Books');
+
+mongoose
+  .connect('mongodb+srv://dzmitry:D1mamukas1992@cluster0.kp1ka.mongodb.net/library?retryWrites=true&w=majority', {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true
+  })
+  .then(() => {
+    console.log('MongoDb connected')
+  })
+  .catch(err => console.log(err));
+
 
 app.use(cors());
 app.use(bodyParser.json());

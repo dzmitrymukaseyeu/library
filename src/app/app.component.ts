@@ -16,11 +16,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
 
-      // this.apiService.getBooks()
-      //   .subscribe((res) => console.log(res));
-
-      this.apiService.getBooks()
-      .subscribe((res) => console.log(res));
+    this.apiService.getBooks()
+    .subscribe((res) => console.log(res));
 
   }
 }

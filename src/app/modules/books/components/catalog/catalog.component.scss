@@ -1,0 +1,8 @@
+.l-books {
+  flex-direction: column;
+  display: flex;
+
+  &-item + &-item {
+    margin-top: 5px;
+  }
+}
