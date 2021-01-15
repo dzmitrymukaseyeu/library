@@ -27,7 +27,8 @@ const UserSchema = new Schema({
   },
   favoriteBooks: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Books'
+    ref: 'Books',
+    default: []
   }]
 });
 

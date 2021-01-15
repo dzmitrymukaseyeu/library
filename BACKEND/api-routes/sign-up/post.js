@@ -1,4 +1,5 @@
 const responseSender = require('../../helpers/response-sender');
+const User = require('../../database/models/User');
 
 const signUpHandlerPost = async (req, res) => {
     const userToSave = req.body;
@@ -13,7 +14,19 @@ const signUpHandlerPost = async (req, res) => {
         return responseSender(res, 422, 'You\'ve missed something important...');
     }
 
-    responseSender(res, 200, 'OK');
+    let user = new User({
+      firstName: userToSave.firstName,
+      lastName: userToSave.lastName,
+      email: userToSave.email,
+      password: userToSave.password,
+    })
+
+    try {
+      await user.save();
+      responseSender(res, 200, 'OK');
+    } catch (err) {
+      responseSender(err, 500, err.message);
+    }
 };
 
 module.exports = signUpHandlerPost;

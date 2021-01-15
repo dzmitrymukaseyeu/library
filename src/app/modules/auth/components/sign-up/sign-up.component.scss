@@ -1,0 +1,31 @@
+.b-signUp {
+  display: flex;
+  justify-content: center;
+}
+
+.f-signUp {
+  width: 600px;
+  padding: 30px;
+  border: 2px solid;
+  border-radius: 5px;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__row {
+    display: block;
+
+    &:last-of-type {
+      margin-bottom: 30px;
+    }
+  }
+
+  &__btn {
+    margin-bottom: 20px;
+  }
+
+  &__link {
+    text-align: end;
+  }
+}

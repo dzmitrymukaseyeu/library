@@ -2,6 +2,7 @@ const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const checkDbConnection = require('./BACKEND/helpers/check-db-connection');
 const PORT = process.env.PORT || 5000;
 const app = express();
 
@@ -13,8 +14,8 @@ const booksHandlerGet = require('./BACKEND/api-routes/books/get');
 const booksHandlerDelete = require('./BACKEND/api-routes/books/delete');
 const booksHandlerPatch = require('./BACKEND/api-routes/books/patch');
 
-const UserSchema = require('./BACKEND/database/modals/User');
-const BooksSchema = require('./BACKEND/database/modals/Books');
+const UserSchema = require('./BACKEND/database/models/User');
+const BooksSchema = require('./BACKEND/database/models/Books');
 
 mongoose
   .connect('mongodb+srv://dzmitry:D1mamukas1992@cluster0.kp1ka.mongodb.net/library?retryWrites=true&w=majority', {
@@ -31,6 +32,7 @@ mongoose
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(checkDbConnection);
 
 // Auth routes
 app.post('/api/auth/sign-up', signUpHandlerPost);
