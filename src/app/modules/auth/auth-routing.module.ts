@@ -10,14 +10,14 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'sing-up',
+        redirectTo: 'sign-up',
       },
       {
-        path: 'sing-in',
+        path: 'sign-in',
         component: SignInComponent
       },
       {
-        path: 'sing-up',
+        path: 'sign-up',
         component: SignUpComponent
       }
     ]

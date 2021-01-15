@@ -16,13 +16,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // this.apiService.signUp({
-    //   firstName: 'Dzmitry',
-    //   lastName: 'Mukaseyeu',
-    //   email: 'privet@gmail.com',
-    //   password: 'privet'
-    // })
-    // .subscribe((res) => console.log(res));
+    this.apiService.signUp({
+      firstName: 'Ivan',
+      lastName: 'Mukaseyeu',
+      email: 'privet@gmail.com',
+      password: 'privet'
+    })
+    .subscribe((res) => console.log(res));
 
     // this.apiService.signIn({
     //   email: 'privet@gmail.com',

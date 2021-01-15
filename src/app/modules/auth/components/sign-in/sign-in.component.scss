@@ -1,0 +1,35 @@
+.b-signIn {
+  display: flex;
+  justify-content: center;
+}
+
+.f-signIn {
+  width: 600px;
+  padding: 30px;
+  border: 2px solid;
+  border-radius: 5px;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__row {
+    display: block;
+
+    &:last-of-type {
+      margin-bottom: 30px;
+    }
+  }
+
+  &__btn {
+    margin-bottom: 20px;
+  }
+
+  &__link {
+    text-align: end;
+
+    & a {
+      color: #3f51b5;
+    }
+  }
+}

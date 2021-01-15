@@ -1,5 +1,9 @@
 const responseSender = require('../../helpers/response-sender');
 const User = require('../../database/models/User');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
+
 
 const signUpHandlerPost = async (req, res) => {
     const userToSave = req.body;
@@ -13,6 +17,8 @@ const signUpHandlerPost = async (req, res) => {
     ) {
         return responseSender(res, 422, 'You\'ve missed something important...');
     }
+
+    userToSave.password = bcrypt.hashSync(userToSave.password, saltRounds);
 
     let user = new User({
       firstName: userToSave.firstName,
