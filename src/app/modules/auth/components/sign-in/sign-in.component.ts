@@ -1,16 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ApiService } from '../../../../services/api/api.service';
+
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss']
 })
-export class SignInComponent implements OnInit {
-  signInForm: FormGroup
+export class SignInComponent implements OnInit, OnDestroy {
+  signInForm: FormGroup;
+  destroy$ = new Subject();
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private apiService: ApiService
   ) { }
 
   ngOnInit(): void {
@@ -28,26 +34,21 @@ export class SignInComponent implements OnInit {
 
   onsignInSubmit(event: Event) {
     event.preventDefault();
-    const userInfo = this.signInForm.value;
-    console.log(userInfo);
-    // this.apiService.signUp(userInfo)
+    const userSignInValue = this.signInForm.value;
+    this.apiService.signIn(userSignInValue)
+    .subscribe((res) => console.log(res));
+    // this.apiService.signIn(userSignInValue)
     //   .pipe(
     //     takeUntil(this.destroy$)
     //   )
-    //   .subscribe((res:ResDefinition) => {
-    //     this.toastsService.show(res.code, res.message);
-    //     this.modalService.modalData$.next(false);
-    //   },
-    //   ({error}: { error: {
-    //     code: number,
-    //     message: string
-    //   }}) => {
-    //     this.toastsService.show(error.code, error.message);
+    //   .subscribe((res) => {
+    //     console.log(res)
     //   })
+  }
 
-    // if(!this.signUpForm.valid) {
-    //   return;
-    // }
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 
 }

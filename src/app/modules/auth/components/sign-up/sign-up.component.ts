@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ApiService } from '../../../../services/api/api.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,7 +11,8 @@ export class SignUpComponent implements OnInit {
   signUpForm: FormGroup
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private apiService: ApiService,
   ) { }
 
   ngOnInit(): void {
@@ -38,25 +39,9 @@ export class SignUpComponent implements OnInit {
   onSignUpSubmit(event: Event) {
     event.preventDefault();
     const userInfo = this.signUpForm.value;
-    console.log(userInfo);
-    // this.apiService.signUp(userInfo)
-    //   .pipe(
-    //     takeUntil(this.destroy$)
-    //   )
-    //   .subscribe((res:ResDefinition) => {
-    //     this.toastsService.show(res.code, res.message);
-    //     this.modalService.modalData$.next(false);
-    //   },
-    //   ({error}: { error: {
-    //     code: number,
-    //     message: string
-    //   }}) => {
-    //     this.toastsService.show(error.code, error.message);
-    //   })
 
-    // if(!this.signUpForm.valid) {
-    //   return;
-    // }
+    this.apiService.signUp(userInfo)
+    .subscribe((res) => console.log(res));
   }
 
 }

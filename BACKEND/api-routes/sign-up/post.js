@@ -7,6 +7,7 @@ const saltRounds = 10;
 
 const signUpHandlerPost = async (req, res) => {
     const userToSave = req.body;
+    userToSave.password = bcrypt.hashSync(userToSave.password, saltRounds);
 
     if (
         !userToSave.firstName
@@ -18,9 +19,7 @@ const signUpHandlerPost = async (req, res) => {
         return responseSender(res, 422, 'You\'ve missed something important...');
     }
 
-    userToSave.password = bcrypt.hashSync(userToSave.password, saltRounds);
-
-    let user = new User({
+    const user = new User({
       firstName: userToSave.firstName,
       lastName: userToSave.lastName,
       email: userToSave.email,
@@ -28,6 +27,12 @@ const signUpHandlerPost = async (req, res) => {
     })
 
     try {
+      const isUserExist = await User.findOne({ email : userToSave.email});
+
+      if (isUserExist) {
+        return responseSender(res, 409, 'This email is already taken!');
+      }
+
       await user.save();
       responseSender(res, 200, 'OK');
     } catch (err) {

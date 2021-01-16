@@ -2,7 +2,6 @@ const Books = require('../../database/models/Books');
 const responseSender = require('../../helpers/response-sender');
 
 const booksHandlerGet = async (req, res) => {
-    const id = req.query.id;
     const genre = req.query.genre;
     const title = req.query.title;
 

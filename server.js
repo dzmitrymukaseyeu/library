@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const checkDbConnection = require('./BACKEND/helpers/check-db-connection');
+const checkForToken = require('./BACKEND/helpers/check-for-token');
 const PORT = process.env.PORT || 5000;
 const app = express();
 
@@ -33,6 +34,7 @@ mongoose
 app.use(cors());
 app.use(bodyParser.json());
 app.use(checkDbConnection);
+app.use(checkForToken);
 
 // Auth routes
 app.post('/api/auth/sign-up', signUpHandlerPost);
