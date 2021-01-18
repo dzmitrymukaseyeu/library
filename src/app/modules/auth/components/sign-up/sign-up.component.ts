@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ApiService } from '../../../../services/api/api.service';
+import { ApiService } from '../../../../services';
 
 @Component({
   selector: 'app-sign-up',
@@ -41,7 +41,9 @@ export class SignUpComponent implements OnInit {
     const userInfo = this.signUpForm.value;
 
     this.apiService.signUp(userInfo)
-    .subscribe((res) => console.log(res));
+    .subscribe((res) => {
+      console.log(res);
+      this.signUpForm.reset();
+    });
   }
-
 }

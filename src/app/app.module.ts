@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
+import { SharedModule } from './shared/shared.module';
 import { MatButtonModule } from '@angular/material/button';
 import { AppRoutingModule } from './app-routing.module';
 import { BooksRoutingModule } from './modules/books/books-routing.module';
@@ -28,7 +29,8 @@ import { HomeComponent } from './components/home/home.component';
     AppRoutingModule,
     AuthRoutingModule,
     BooksRoutingModule,
-    UserRoutingModule
+    UserRoutingModule,
+    SharedModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

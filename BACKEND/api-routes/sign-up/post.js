@@ -3,8 +3,6 @@ const User = require('../../database/models/User');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-
-
 const signUpHandlerPost = async (req, res) => {
     const userToSave = req.body;
     userToSave.password = bcrypt.hashSync(userToSave.password, saltRounds);

@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ApiService } from '../../../../services/api/api.service';
+import { ApiService } from '../../../../services';
+import { UserService} from '../../../../services';
+import { ResUserDefinition } from '../../../../../app/shared/interfaces';
 
-import { Subject } from 'rxjs';
+import { from, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -16,7 +18,8 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private apiService: ApiService
+    private apiService: ApiService,
+    public userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -36,14 +39,12 @@ export class SignInComponent implements OnInit, OnDestroy {
     event.preventDefault();
     const userSignInValue = this.signInForm.value;
     this.apiService.signIn(userSignInValue)
-    .subscribe((res) => console.log(res));
-    // this.apiService.signIn(userSignInValue)
-    //   .pipe(
-    //     takeUntil(this.destroy$)
-    //   )
-    //   .subscribe((res) => {
-    //     console.log(res)
-    //   })
+    .subscribe((res: ResUserDefinition) => {
+      this.userService.userData$.next(res.content.user);
+      localStorage.setItem('accessToken', res.content.token.accessToken);
+      localStorage.setItem('refreshToken', res.content.token.refreshToken);
+      console.log(res.content.token,  this.userService.userData$);
+    });
   }
 
   ngOnDestroy(): void {

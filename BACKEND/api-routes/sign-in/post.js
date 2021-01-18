@@ -2,7 +2,6 @@ const responseSender = require('../../helpers/response-sender');
 const bcrypt = require('bcrypt');
 const User = require('../../database/models/User');
 const jwt = require('jsonwebtoken');
-
 const jwtKey = 'dev-jwt';
 
 const signInHandlerPost = async (req, res) => {
