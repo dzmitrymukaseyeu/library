@@ -1,18 +1,19 @@
-// import { EventsAllDefinition } from './events';
-import { TokenDefinition } from './token';
 import { UserDefinition } from './user';
 
 export interface ResDefinition {
-        code: number;
-        message: string;
-        content?: unknown;
+  code: number;
+  message: string;
+  content?: unknown;
 }
 
 export interface ResUserDefinition extends ResDefinition {
-        content: {
-          token: TokenDefinition;
-          user: UserDefinition
-        }
+  content: {
+    token: {
+      accessToken: string;
+      refreshToken: string;
+    },
+    user: UserDefinition
+  }
 }
 
 // export interface ResEventPageDefinition extends ResDefinition {

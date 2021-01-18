@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from '../../shared/interceptors/token.interceptor';
 
 
 @NgModule({
@@ -20,6 +22,11 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-  ]
+  ],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    multi: true,
+    useClass: TokenInterceptor
+  }]
 })
 export class AuthModule { }

@@ -40,10 +40,9 @@ export class SignInComponent implements OnInit, OnDestroy {
     const userSignInValue = this.signInForm.value;
     this.apiService.signIn(userSignInValue)
     .subscribe((res: ResUserDefinition) => {
-      this.userService.userData$.next(res.content.user);
       localStorage.setItem('accessToken', res.content.token.accessToken);
       localStorage.setItem('refreshToken', res.content.token.refreshToken);
-      console.log(res.content.token,  this.userService.userData$);
+      console.log(res.content.token);
     });
   }
 

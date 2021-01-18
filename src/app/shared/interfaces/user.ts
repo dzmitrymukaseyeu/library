@@ -5,4 +5,5 @@ export interface UserDefinition {
   firstName: string;
   lastName: string;
   password: string;
+  _id: string;
 }

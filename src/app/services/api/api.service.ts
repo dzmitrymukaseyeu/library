@@ -39,6 +39,10 @@ export class ApiService {
     return this.httpClient.get(this.env.apiUrl + 'api/user');
   }
 
+  getToken() {
+    return this.httpClient.get(this.env.apiUrl + 'api/token');
+  }
+
   getBooks(params?: {
     id?: string | string[];
     genre?: string;

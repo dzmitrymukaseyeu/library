@@ -17,7 +17,7 @@ const signInHandlerPost = async (req, res) => {
     }
 
     try {
-      user = await User.findOne({email: userToLogIn.email}).select('-__v -_id');
+      user = await User.findOne({email: userToLogIn.email}).select('-__v');
     } catch(err) {
       return responseSender(err, 500, err.message);
     }
@@ -31,7 +31,6 @@ const signInHandlerPost = async (req, res) => {
     if (!isPasswordTheSame) {
       return responseSender(res, 401, 'Authentication failed. Wrong password!');
     }
-
     const accessToken = jwt.sign({userId: user._id}, jwtKey, {expiresIn: '1h'});
     const refreshToken = jwt.sign({userId: user._id}, jwtKey, {expiresIn: '10d'});
 
