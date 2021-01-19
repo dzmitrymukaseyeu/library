@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ApiService } from '../../../../services';
-import { UserService} from '../../../../services';
+import { ApiService, UserService, TokenService } from '../../../../services';
 import { ResUserDefinition } from '../../../../../app/shared/interfaces';
 
 import { from, Subject } from 'rxjs';
@@ -19,7 +18,8 @@ export class SignInComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
-    public userService: UserService
+    public userService: UserService,
+    public tokenService: TokenService
   ) { }
 
   ngOnInit(): void {
@@ -38,11 +38,17 @@ export class SignInComponent implements OnInit, OnDestroy {
   onsignInSubmit(event: Event) {
     event.preventDefault();
     const userSignInValue = this.signInForm.value;
+
     this.apiService.signIn(userSignInValue)
     .subscribe((res: ResUserDefinition) => {
       localStorage.setItem('accessToken', res.content.token.accessToken);
       localStorage.setItem('refreshToken', res.content.token.refreshToken);
-      console.log(res.content.token);
+      this.tokenService.tokenData$.next({
+        accessToken: res.content.token.accessToken,
+        refreshToken: res.content.token.refreshToken
+      });
+      this.userService.userData$.next(res.content.user)
+      console.log(this.tokenService.tokenData$);
     });
   }
 
