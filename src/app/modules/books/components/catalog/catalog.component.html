@@ -2,7 +2,10 @@
   <div class="container">
     <ul class="l-books">
       <li *ngFor="let book of books" class="l-books-item">
-        <app-book></app-book>
+        <app-book
+          [book]='book'
+        >
+      </app-book>
       </li>
     </ul>
   </div>

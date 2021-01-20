@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TokenService, UserService, ApiService} from './services';
-import { ResUserDefinition, UserDefinition } from '../app/shared/interfaces';
+import { UserDefinition } from '../app/shared/interfaces';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -32,9 +32,9 @@ export class AppComponent implements OnInit, OnDestroy {
         .pipe (
           takeUntil(this.destroy$)
         )
-        .subscribe((res: ResUserDefinition) => {
+        .subscribe((res: UserDefinition) => {
           console.log(res);
-          this.userService.userData$.next(res.content.user)
+          this.userService.userData$.next(res)
         });
     }
 

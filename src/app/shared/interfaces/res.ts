@@ -1,4 +1,5 @@
 import { UserDefinition } from './user';
+import { BookDefinition } from './book';
 
 export interface ResDefinition {
   code: number;
@@ -15,6 +16,12 @@ export interface ResUserDefinition extends ResDefinition {
     user: UserDefinition
   }
 }
+
+export interface ResBookDefinition extends ResDefinition {
+  content: BookDefinition[];
+}
+
+
 
 // export interface ResEventPageDefinition extends ResDefinition {
 //         content: EventsAllDefinition;

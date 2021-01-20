@@ -8,7 +8,6 @@ const booksHandlerDelete = (req, res) => {
     }
 
     responseSender(res, 200, 'Got it!');
-    console.log('delete');
 };
 
 module.exports = booksHandlerDelete;

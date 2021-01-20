@@ -3,37 +3,37 @@
     <mat-expansion-panel-header>
       <div class="b-book__header">
         <div class="b-book__logo">
-          <img src="../../../../../assets/imgonline-com-ua-Resize-CJBBmaGFO4x.jpg" alt="barak">
+          <img src={{book.img}} alt="barak">
         </div>
         <div class="b-book__content">
           <mat-panel-title class="b-book__content-title">
-            A Promised Land
+            {{book.title}}
           </mat-panel-title>
           <mat-panel-description class="b-book__content-description">
-            Barack Obama
+            {{book.author}}
           </mat-panel-description>
           <mat-panel-description class="b-book__content-genre">
-            Genre: Biography
+            Genre: {{book.genre}}
           </mat-panel-description>
         </div>
       </div>
     </mat-expansion-panel-header>
     <p class="b-book__info-title" *ngIf= "!editText">
-      Title: <span>A Promised Land</span>
+      Title: <span>{{book.title}}</span>
     </p>
     <p class="b-book__info-author" *ngIf= "!editText">
-      Author: <span>Barack Obama</span>
+      Author: <span>{{book.author}}</span>
     </p>
     <p class="b-book__info-genre" *ngIf= "!editText">
-      Genre: <span>Biography</span>
+      Genre: <span>{{book.genre}}</span>
     </p>
     <p class="b-book__info-descrip">
-      Description: <span>A riveting, deeply personal account of history in the making-from the president who inspired us to believe in the power of democracy.</span>
+      Description: <span>{{book.description}}</span>
     </p>
-    <p class="b-book__info-publush">Publication Date: <span>17/11/2020</span></p>
+    <p class="b-book__info-publush">Publication Date: <span>{{book.published}}</span></p>
     <div class="b-book__link">
       <a
-        mat-raised-button color="warn" href="https://goo.su/3Sew"
+        mat-raised-button color="warn" href={{book.link}}
         target="_blank"
         class="b-book__link-buy"
       >

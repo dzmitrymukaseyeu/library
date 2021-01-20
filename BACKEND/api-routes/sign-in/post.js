@@ -31,6 +31,7 @@ const signInHandlerPost = async (req, res) => {
     if (!isPasswordTheSame) {
       return responseSender(res, 401, 'Authentication failed. Wrong password!');
     }
+
     const accessToken = jwt.sign({userId: user._id}, jwtKey, {expiresIn: '1h'});
     const refreshToken = jwt.sign({userId: user._id}, jwtKey, {expiresIn: '10d'});
 
