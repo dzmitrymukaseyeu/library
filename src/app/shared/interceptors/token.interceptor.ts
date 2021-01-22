@@ -3,6 +3,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { TokenService } from "./../../services/token/token.service";
 import { TokenDefinition } from './../interfaces/index';
 import { from, Observable } from 'rxjs';
+import { get } from 'http';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -17,9 +18,7 @@ export class TokenInterceptor implements HttpInterceptor {
     this.tokenService.tokenData$
     .subscribe((res: TokenDefinition) => token = res.accessToken);
 
-    console.log(token);
-
-    if (req.url.includes('api/user')) {
+    if (req.url.includes('api/user') || (req.url.includes('api/books') && req.method !== 'GET') || req.url.includes('api/favorites')) {
       newReq = req.clone({
         setHeaders: {
           Authorization: 'Bearer ' + token

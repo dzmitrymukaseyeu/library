@@ -18,45 +18,137 @@
         </div>
       </div>
     </mat-expansion-panel-header>
-    <p class="b-book__info-title" *ngIf= "!editText">
-      Title: <span>{{book.title}}</span>
-    </p>
-    <p class="b-book__info-author" *ngIf= "!editText">
-      Author: <span>{{book.author}}</span>
-    </p>
-    <p class="b-book__info-genre" *ngIf= "!editText">
-      Genre: <span>{{book.genre}}</span>
-    </p>
-    <p class="b-book__info-descrip">
-      Description: <span>{{book.description}}</span>
-    </p>
-    <p class="b-book__info-publush">Publication Date: <span>{{book.published}}</span></p>
-    <div class="b-book__link">
-      <a
-        mat-raised-button color="warn" href={{book.link}}
-        target="_blank"
-        class="b-book__link-buy"
-      >
+    <div class="b-book__wrapper">
+      <div class="b-book__info" *ngIf= "editText">
+        <p class="b-book__info-title">
+          Title: <span>{{book.title}}</span>
+        </p>
+        <p class="b-book__info-author">
+          Author: <span>{{book.author}}</span>
+        </p>
+        <p class="b-book__info-genre">
+          Genre: <span>{{book.genre}}</span>
+        </p>
+        <p class="b-book__info-descrip">
+          Description: <span>{{book.description}}</span>
+        </p>
+        <p class="b-book__info-publush">Publication Date: <span>{{book.published}}</span></p>
+        <a
+          mat-raised-button color="warn" href={{book.link}}
+          target="_blank"
+          class="b-book__info-link"
+        >
         BUY IT NOW
-      </a>
-      <div class="b-book__link-btn">
-        <button
-        mat-stroked-button
-        class="b-book__btn-edit"
-        type="button"
-        (click)="onEditBook($event)"
-        >
-        {{editText ? 'edit' : 'save'}}
-        </button>
-        <button
-          mat-icon-button color="warn"
-          disabled
-          aria-label="Example icon button with a heart icon"
-          class="b-book__btn-favor"
-        >
-          <mat-icon>favorite</mat-icon>
-        </button>
+        </a>
       </div>
+      <form
+        *ngIf= "!editText"
+        action="#"
+        name="editText"
+        class="f-book"
+        [formGroup] = "bookEditForm"
+        (submit)="updateBook(book._id)"
+      >
+        <mat-form-field class="f-book__title">
+          <mat-label>Title</mat-label>
+          <input
+            type="text"
+            name="title"
+            formControlName="title"
+            matInput
+            placeholder="Title"
+          >
+        </mat-form-field>
+        <mat-form-field class="f-book__title">
+          <mat-label>Author</mat-label>
+          <input
+            type="text"
+            name="author"
+            formControlName="author"
+            matInput
+            placeholder="Author"
+          >
+        </mat-form-field>
+        <mat-form-field class="f-book__title">
+          <mat-label>Genre</mat-label>
+          <input
+            type="text"
+            name="genre"
+            formControlName="genre"
+            matInput
+            placeholder="Genre"
+          >
+        </mat-form-field>
+        <mat-form-field class="f-book__title">
+          <mat-label>Description</mat-label>
+          <textarea
+            type="text"
+            name="description"
+            formControlName="description"
+            matInput
+            placeholder="Description"
+          >
+          </textarea>
+        </mat-form-field>
+        <mat-form-field class="f-book__title">
+          <mat-label>Publication Date</mat-label>
+          <input
+            type="date"
+            name="published"
+            formControlName="published"
+            matInput
+            placeholder="Publication Date"
+          >
+        </mat-form-field>
+        <mat-form-field class="f-book__title">
+          <mat-label>Link</mat-label>
+          <input
+            type="text"
+            name="link"
+            formControlName="link"
+            matInput
+            placeholder="Link"
+          >
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="warn"
+          type="submit"
+          class="f-book__btn"
+        >
+          Save
+        </button>
+      </form>
+    </div>
+    <div class="b-book__btn">
+      <button
+      mat-icon-button
+      color="warn"
+      disabled
+      aria-label="Example icon button with a heart icon"
+      title="Add to favorites"
+      class="b-book__btn-link"
+      >
+        <mat-icon>favorite</mat-icon>
+      </button>
+      <button
+      mat-icon-button
+      class="b-book__btn-link"
+      type="button"
+      title="Edit"
+      (click)="onEditBook()"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+      mat-icon-button
+      class="b-book__btn-link"
+      type="button"
+      title="Delete"
+      (click)="onDeleteBook(book._id)"
+      >
+        <mat-icon class="example-icon" color="warn">delete</mat-icon>
+      </button>
     </div>
   </mat-expansion-panel>
   <mat-expansion-panel (opened)="editText = true"

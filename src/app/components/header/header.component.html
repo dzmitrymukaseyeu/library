@@ -1,0 +1,34 @@
+<header class="header">
+  <div class="container">
+    <div class="header-content">
+      <ul class="l-nav">
+        <li class="l-nav__item">
+          <a href="#" class="l-nav__item-link" routerLink="books">Catalog</a>
+        </li>
+        <li class="l-nav__item">
+          <a href="" class="l-nav__item-link"></a>
+        </li>
+        <li class="l-nav__item">
+          <a href="" class="l-nav__item-link"></a>
+        </li>
+        <li class="l-nav__item">
+          <a href="" class="l-nav__item-link"></a>
+        </li>
+      </ul>
+      <div class="b-auth">
+        <a href="#" routerLink="auth">Log in</a>
+      </div>
+    </div>
+                        <a
+                        routerLink="user"
+                        *ngIf="userService.userData$"
+
+                        class="b-auth__user"
+                    >
+                        <img src="/assets/iconmonstr-user-20.svg" alt="user-logo">
+                        <span>Привет,</span>
+                    </a>
+  </div>
+</header>
+<!-- <a href="#" routerLink="auth">Log in</a>
+<a href="#" routerLink="books">Books</a> -->

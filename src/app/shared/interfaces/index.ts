@@ -1,5 +1,5 @@
 import { UserDefinition } from './user';
-import { ResDefinition, ResUserDefinition, ResBookDefinition } from './res';
+import { ResDefinition, ResUserDefinition, ResBooksDefinition, ResBookDefinition } from './res';
 import { TokenDefinition } from './token';
 import { BookDefinition } from './book';
 
@@ -10,5 +10,6 @@ export {
     ResUserDefinition,
     TokenDefinition,
     BookDefinition,
-    ResBookDefinition
-}
+    ResBookDefinition,
+    ResBooksDefinition
+  }

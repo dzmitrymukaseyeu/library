@@ -14,12 +14,14 @@ import { AuthRoutingModule } from './modules/auth/auth-routing.module';
 import { ApiService } from './services/api/api.service';
 import { HomeComponent } from './components/home/home.component';
 import { TokenInterceptor } from './shared/interceptors/token.interceptor';
+import { HeaderComponent } from './components/header/header.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

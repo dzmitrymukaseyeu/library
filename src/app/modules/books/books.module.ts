@@ -8,6 +8,8 @@ import { BookComponent } from './components/book/book.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -21,6 +23,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatExpansionModule,
     MatButtonModule,
     MatIconModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class BooksModule { }

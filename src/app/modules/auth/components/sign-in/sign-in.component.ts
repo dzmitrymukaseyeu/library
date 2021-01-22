@@ -48,7 +48,6 @@ export class SignInComponent implements OnInit, OnDestroy {
         refreshToken: res.content.token.refreshToken
       });
       this.userService.userData$.next(res.content.user)
-      console.log(this.tokenService.tokenData$);
     });
   }
 

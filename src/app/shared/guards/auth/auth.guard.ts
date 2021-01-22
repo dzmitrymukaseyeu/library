@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { from, Observable } from 'rxjs';
-import { UserService } from './../../../services/index';
+import { get } from 'http';
+import { from, Observable, of, forkJoin } from 'rxjs';
+import { skip } from 'rxjs/operators';
+import { switchMap, catchError } from 'rxjs/operators';
+import { UserService, ApiService } from './../../../services/index';
 import { UserDefinition } from './../../interfaces';
 
 @Injectable({
@@ -12,25 +15,34 @@ export class AuthGuard implements CanActivate {
 
   constructor(
     public userService: UserService,
+    public apiService: ApiService,
     private router: Router
-  ) {}
+  ) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  ){
+    return this.userService.userData$
+      .pipe(
+        switchMap(data => {
+          if(!data) {
+            return this.apiService.getUserData().pipe(catchError(()=> of(false)));
+          }
 
-    // this.userService.userData$
-    // .subscribe((res: UserDefinition) => this.userData = res);
+          return of(true);
+        }),
+        switchMap(data => {
+          console.log(data);
+          // @ts-ignore
+          if(data === true || data?.content?.firstName) {
+            return of(true);
+          }
 
+          this.router.navigate(['/auth/sign-in']);
 
-    if (this.userService.userData$) {
-      return true;
-    }
-
-    this.router.navigate(['/']);
-
-    return false;
-  }
-
+          return of(false);
+        })
+      )
+  };
 }

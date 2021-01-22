@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient }  from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { ObjectId } from 'mongoose';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -52,20 +54,25 @@ export class ApiService {
   }
 
   deleteBook(params: {
-    id: string;
+    id:string
   }) {
     return this.httpClient.delete(this.env.apiUrl + 'api/books', { params });
   }
 
-  updateBooks(params: {
-    id: string;
-    title?: string;
-    author?: string;
-    published?: string;
-    genre?: string;
-    description?: string;
-    link?: string;
+  updateBooks(body: {
+    filter: {
+      _id: ObjectId
+    },
+    update: {
+      title?: string;
+      author?: string;
+      published?: string;
+      genre?: string;
+      description?: string;
+      link?: string;
+    }
+
   }) {
-    return this.httpClient.patch(this.env.apiUrl + 'api/books', { params });
+    return this.httpClient.patch(this.env.apiUrl + 'api/books', body);
   }
 }

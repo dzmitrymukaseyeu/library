@@ -23,7 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
     const accessToken = localStorage.getItem('accessToken');
 
     this.tokenService.tokenData$.next({
-      accessToken: localStorage.getItem('accessToken'),
+      accessToken,
       refreshToken: localStorage.getItem('refreshToken')
     });
 

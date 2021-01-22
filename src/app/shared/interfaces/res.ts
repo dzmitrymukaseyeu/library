@@ -17,8 +17,12 @@ export interface ResUserDefinition extends ResDefinition {
   }
 }
 
-export interface ResBookDefinition extends ResDefinition {
+export interface ResBooksDefinition extends ResDefinition {
   content: BookDefinition[];
+}
+
+export interface ResBookDefinition extends ResDefinition {
+  content: BookDefinition;
 }
 
 
