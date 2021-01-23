@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { ResBookDefinition, BookDefinition } from './../../../../shared/interfaces';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ObjectId } from 'mongoose';
@@ -12,6 +12,7 @@ import { ApiService } from './../../../../services';
 })
 export class BookComponent implements OnInit {
   @Input() book: BookDefinition;
+  @Output() delbook = new EventEmitter<any>() ;
   editText: boolean = true;
   bookEditForm: FormGroup;
 
@@ -68,7 +69,10 @@ export class BookComponent implements OnInit {
   onDeleteBook(id: string) {
     console.log(id);
     this.apiService.deleteBook({id})
-    .subscribe((res => console.log(res)))
+    .subscribe((res => {
+      console.log(res)
+    }))
+    this.delbook.emit(id)
   }
 
 }

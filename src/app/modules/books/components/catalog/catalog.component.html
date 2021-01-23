@@ -3,7 +3,8 @@
     <ul class="l-books">
       <li *ngFor="let book of books" class="l-books-item">
         <app-book
-          [book]='book'
+          [book]= "book"
+          (delbook)="onDeleteBook(book._id)"
         >
       </app-book>
       </li>

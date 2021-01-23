@@ -1,7 +1,7 @@
 import { ObjectId } from "mongoose"
 
 export interface BookDefinition {
-  _id: ObjectId;
+  _id: string;
   author: string;
   published: Date;
   genre: string;

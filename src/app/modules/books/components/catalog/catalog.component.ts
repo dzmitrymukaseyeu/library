@@ -22,5 +22,8 @@ export class CatalogComponent implements OnInit {
     });
   }
 
+  onDeleteBook(id: string){
+    this.books = this.books.filter(book => book._id !== id);
+  }
 
 }

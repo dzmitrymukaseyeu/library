@@ -8,7 +8,7 @@ const booksHandlerPatch = async (req, res) => {
     });
 
     responseSender(res, 200, 'Got it!', book);
-  } catch (error) {
+  } catch (err) {
     responseSender(err, 500, err.message);
   }
 };
