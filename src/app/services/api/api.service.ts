@@ -60,9 +60,7 @@ export class ApiService {
   }
 
   updateBooks(body: {
-    filter: {
-      _id: ObjectId
-    },
+    id: string,
     update: {
       title?: string;
       author?: string;
@@ -74,5 +72,12 @@ export class ApiService {
 
   }) {
     return this.httpClient.patch(this.env.apiUrl + 'api/books', body);
+  }
+
+  toogleFavorite(body: {
+    id: string;
+    state: boolean;
+  }) {
+    return this.httpClient.post(this.env.apiUrl + 'api/favorites', body)
   }
 }

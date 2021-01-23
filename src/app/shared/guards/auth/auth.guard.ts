@@ -23,6 +23,8 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ){
+    // return this.userService.userData$.pipe(switchMap(data => of(!!data))
+
     return this.userService.userData$
       .pipe(
         switchMap(data => {

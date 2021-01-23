@@ -1,11 +1,11 @@
 const responseSender = (res, code, message, content) => {
     const objToSend = {
-        code,
-        message
+      code,
+      message
     };
 
     if (typeof content !== undefined) {
-        objToSend['content'] = content;
+      objToSend['content'] = content;
     }
 
     res.status(code).json(objToSend);

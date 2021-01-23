@@ -122,21 +122,23 @@
     </div>
     <div class="b-book__btn">
       <button
-      mat-icon-button
-      color="warn"
-      disabled
-      aria-label="Example icon button with a heart icon"
-      title="Add to favorites"
-      class="b-book__btn-link"
+        mat-icon-button
+        color="warn"
+        aria-label="Example icon button with a heart icon"
+        title="Add to favorites"
+        class="b-book__btn-link"
+        (click)="toogleFavorite(book._id, likeState)"
       >
-        <mat-icon>favorite</mat-icon>
+        <mat-icon>
+          {{likeState ? 'favorite' : 'favorite_border'}}
+        </mat-icon>
       </button>
       <button
-      mat-icon-button
-      class="b-book__btn-link"
-      type="button"
-      title="Edit"
-      (click)="onEditBook()"
+        mat-icon-button
+        class="b-book__btn-link"
+        type="button"
+        title="Edit"
+        (click)="onEditBook()"
       >
         <mat-icon>edit</mat-icon>
       </button>

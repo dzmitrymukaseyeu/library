@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService, UserService, TokenService } from '../../../../services';
 import { ResUserDefinition } from '../../../../../app/shared/interfaces';
@@ -19,7 +20,8 @@ export class SignInComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     public userService: UserService,
-    public tokenService: TokenService
+    public tokenService: TokenService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -40,15 +42,17 @@ export class SignInComponent implements OnInit, OnDestroy {
     const userSignInValue = this.signInForm.value;
 
     this.apiService.signIn(userSignInValue)
-    .subscribe((res: ResUserDefinition) => {
-      localStorage.setItem('accessToken', res.content.token.accessToken);
-      localStorage.setItem('refreshToken', res.content.token.refreshToken);
-      this.tokenService.tokenData$.next({
-        accessToken: res.content.token.accessToken,
-        refreshToken: res.content.token.refreshToken
+      .subscribe((res: ResUserDefinition) => {
+        localStorage.setItem('accessToken', res.content.token.accessToken);
+        localStorage.setItem('refreshToken', res.content.token.refreshToken);
+
+        this.tokenService.tokenData$.next({
+          accessToken: res.content.token.accessToken,
+          refreshToken: res.content.token.refreshToken
+        });
+        this.userService.userData$.next(res.content.user);
+        this.router.navigate(['/books']);
       });
-      this.userService.userData$.next(res.content.user)
-    });
   }
 
   ngOnDestroy(): void {

@@ -17,7 +17,7 @@ const signInHandlerPost = async (req, res) => {
     }
 
     try {
-      user = await User.findOne({email: userToLogIn.email}).select('-__v');
+      user = await User.findOne({email: userToLogIn.email}).select('-__v').lean();
     } catch(err) {
       return responseSender(err, 500, err.message);
     }
@@ -34,11 +34,10 @@ const signInHandlerPost = async (req, res) => {
 
     const accessToken = jwt.sign({userId: user._id}, jwtKey, {expiresIn: '1h'});
     const refreshToken = jwt.sign({userId: user._id}, jwtKey, {expiresIn: '10d'});
-
-    delete user.password;
+    const {password, ...rest} = user;
 
     responseSender(res, 200, 'OK', {
-      user,
+      user: rest,
       token: {
         accessToken,
         refreshToken

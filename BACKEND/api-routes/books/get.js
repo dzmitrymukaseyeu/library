@@ -2,15 +2,10 @@ const Books = require('../../database/models/Books');
 const responseSender = require('../../helpers/response-sender');
 
 const booksHandlerGet = async (req, res) => {
-  const genre = req.query.genre;
-  const title = req.query.title;
   let params = {};
 
   if (Object.keys(params).length) {
-    params = {
-      genre,
-      title
-    }
+    params = req.query;
   }
 
   try {

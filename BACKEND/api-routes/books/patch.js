@@ -2,12 +2,12 @@ const Books = require('../../database/models/Books');
 const responseSender = require('../../helpers/response-sender');
 
 const booksHandlerPatch = async (req, res) => {
-  try {
-    const book = await Books.findOneAndUpdate(req.body.filter, req.body.update, {
-      new: true
-    });
+  const {id: _id, update} = req.body;
 
-    responseSender(res, 200, 'Got it!', book);
+  try {
+    const book = await Books.findOneAndUpdate({_id}, update, {new: true});
+
+    responseSender(res, 200, 'Book has been updated!', book);
   } catch (err) {
     responseSender(err, 500, err.message);
   }

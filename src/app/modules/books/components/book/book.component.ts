@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { ResBookDefinition, BookDefinition } from './../../../../shared/interfaces';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ObjectId } from 'mongoose';
-import { ApiService } from './../../../../services';
+import { ApiService, UserService } from './../../../../services';
 
 
 @Component({
@@ -15,11 +15,12 @@ export class BookComponent implements OnInit {
   @Output() delbook = new EventEmitter<any>() ;
   editText: boolean = true;
   bookEditForm: FormGroup;
+  likeState = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    public apiService: ApiService,
-    private cd: ChangeDetectorRef
+    private apiService: ApiService,
+    public userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -42,15 +43,20 @@ export class BookComponent implements OnInit {
       link: [this.book.link, [
         Validators.required
       ]],
-  })
+    });
+
+  this.userService.userData$
+    .subscribe(res => {
+      if (res) {
+        this.likeState = res.favoriteBooks.includes(this.book._id);
+      }
+    });
   }
 
-  updateBook(id: ObjectId) {
+  updateBook(id: string) {
     const bookInfo = this.bookEditForm.value;
     const bookUpdateData = {
-      filter: {
-        _id: id
-      },
+      id,
       update: bookInfo
     }
 
@@ -74,5 +80,16 @@ export class BookComponent implements OnInit {
     }))
     this.delbook.emit(id)
   }
+
+  toogleFavorite(id: string, state: boolean) {
+    console.log(state);
+    this.apiService.toogleFavorite({id, state})
+    .subscribe((res => {
+      console.log(res)
+      // @ts-ignore
+      this.userService.userData$.next(res.content);
+    }))
+  }
+
 
 }
