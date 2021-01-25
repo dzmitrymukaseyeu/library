@@ -3,32 +3,39 @@
     <div class="header-content">
       <ul class="l-nav">
         <li class="l-nav__item">
+          <a href="#" class="l-nav__item-link" routerLink="">Home</a>
+        </li>
+        <li class="l-nav__item">
           <a href="#" class="l-nav__item-link" routerLink="books">Catalog</a>
-        </li>
-        <li class="l-nav__item">
-          <a href="" class="l-nav__item-link"></a>
-        </li>
-        <li class="l-nav__item">
-          <a href="" class="l-nav__item-link"></a>
-        </li>
-        <li class="l-nav__item">
-          <a href="" class="l-nav__item-link"></a>
         </li>
       </ul>
       <div class="b-auth">
-        <a href="#" routerLink="auth">Log in</a>
+        <a
+          href="#"
+          routerLink="auth"
+          *ngIf= "!(userService.userData$ | async)"
+        >
+          Log In
+        </a>
+        <a
+          routerLink="user"
+          *ngIf="userService.userData$ | async as user"
+          class="b-auth__link"
+        >
+          <mat-icon matBadge="{{user.favoriteBooks.length}}" matBadgeColor="warn">person_outline</mat-icon>
+          <span class="b-auth__link-user">Hello, {{user.firstName}}</span>
+        </a>
+        <button
+          type="button"
+          *ngIf="userService.userData$ | async"
+          class="b-auth__link"
+          href="#"
+          (click)="onLogOut()"
+        >
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Log Out</span>
+        </button>
       </div>
     </div>
-                        <a
-                        routerLink="user"
-                        *ngIf="userService.userData$"
-
-                        class="b-auth__user"
-                    >
-                        <img src="/assets/iconmonstr-user-20.svg" alt="user-logo">
-                        <span>Привет,</span>
-                    </a>
   </div>
 </header>
-<!-- <a href="#" routerLink="auth">Log in</a>
-<a href="#" routerLink="books">Books</a> -->

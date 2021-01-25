@@ -63,6 +63,11 @@ export class BookComponent implements OnInit {
     this.apiService.updateBooks(bookUpdateData)
     .subscribe((res:ResBookDefinition) => {
       this.book.title = res.content.title;
+      this.book.author = res.content.author;
+      this.book.genre = res.content.genre;
+      this.book.description = res.content.description;
+      this.book.published = res.content.published;
+      this.book.link = res.content.link;
     });
     this.editText = true;
   }

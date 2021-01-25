@@ -59,9 +59,9 @@
   flex-direction: column;
   // justify-content: space-between;
 
-  // &-link:first-of-type {
-  //   margin-bottom: 30px;
-  // }
+  &-link:first-of-type {
+    margin-bottom: 30px;
+  }
 }
 
 .f-book {

@@ -1,0 +1,33 @@
+.header-content {
+  padding: 30px 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+}
+
+.l-nav {
+  &__item + &__item {
+    margin-left: 100px;
+  }
+}
+
+.b-auth {
+  display: flex;
+
+  &__link {
+    display: flex;
+    align-items: center;
+
+    &-user {
+      margin-left: 13px;
+    }
+
+    & span {
+      font-size: 18px;
+    }
+  }
+
+  &__link + &__link {
+    margin-left: 15px;
+  }
+}

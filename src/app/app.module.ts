@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { SharedModule } from './shared/shared.module';
 import { MatButtonModule } from '@angular/material/button';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatIconModule } from '@angular/material/icon';
 import { AppRoutingModule } from './app-routing.module';
 import { BooksRoutingModule } from './modules/books/books-routing.module';
 import { UserRoutingModule } from './modules/user/user-routing.module';
@@ -33,7 +35,9 @@ import { HeaderComponent } from './components/header/header.component';
     AuthRoutingModule,
     BooksRoutingModule,
     UserRoutingModule,
-    SharedModule
+    SharedModule,
+    MatIconModule,
+    MatBadgeModule
   ],
   providers: [ApiService, {
     provide: HTTP_INTERCEPTORS,

@@ -52,6 +52,7 @@ export class SignInComponent implements OnInit, OnDestroy {
         });
         this.userService.userData$.next(res.content.user);
         this.router.navigate(['/books']);
+        this.signInForm.reset();
       });
   }
 

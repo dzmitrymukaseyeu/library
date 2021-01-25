@@ -38,7 +38,7 @@
           target="_blank"
           class="b-book__info-link"
         >
-        BUY IT NOW
+          BUY IT NOW
         </a>
       </div>
       <form
@@ -121,6 +121,29 @@
       </form>
     </div>
     <div class="b-book__btn">
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="b-book__btn-link">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button
+          mat-menu-item
+          type="button"
+          title="Edit"
+          (click)="onEditBook()"
+        >
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
+        </button>
+        <button
+          mat-menu-item
+          type="button"
+          title="Delete"
+          (click)="onDeleteBook(book._id)"
+        >
+          <mat-icon class="example-icon">delete</mat-icon>
+          <span>Delete</span>
+        </button>
+      </mat-menu>
       <button
         mat-icon-button
         color="warn"
@@ -133,27 +156,11 @@
           {{likeState ? 'favorite' : 'favorite_border'}}
         </mat-icon>
       </button>
-      <button
-        mat-icon-button
-        class="b-book__btn-link"
-        type="button"
-        title="Edit"
-        (click)="onEditBook()"
-      >
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button
-      mat-icon-button
-      class="b-book__btn-link"
-      type="button"
-      title="Delete"
-      (click)="onDeleteBook(book._id)"
-      >
-        <mat-icon class="example-icon" color="warn">delete</mat-icon>
-      </button>
     </div>
   </mat-expansion-panel>
-  <mat-expansion-panel (opened)="editText = true"
-                       (closed)="editText = false">
+  <mat-expansion-panel
+    (opened)="editText = true"
+    (closed)="editText = false"
+  >
   </mat-expansion-panel>
 </mat-accordion>
