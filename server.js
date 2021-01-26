@@ -15,6 +15,7 @@ const booksHandlerGet = require('./BACKEND/api-routes/books/get');
 const booksHandlerDelete = require('./BACKEND/api-routes/books/delete');
 const booksHandlerPatch = require('./BACKEND/api-routes/books/patch');
 const favoritesHandlerPost = require('./BACKEND/api-routes/favorites/post');
+const bookHandlerPost = require('./BACKEND/api-routes/books/post');
 
 const UserSchema = require('./BACKEND/database/models/User');
 const BooksSchema = require('./BACKEND/database/models/Books');
@@ -49,6 +50,7 @@ app.get('/api/user', userHandlerGet);
 app.get('/api/books', booksHandlerGet);
 app.delete('/api/books', booksHandlerDelete);
 app.patch('/api/books', booksHandlerPatch);
+app.post('/api/books', bookHandlerPost);
 
 // Favorites routes
 app.post('/api/favorites', favoritesHandlerPost)

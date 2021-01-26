@@ -30,19 +30,26 @@ export class ApiService {
     return this.httpClient.post(this.env.apiUrl + 'api/auth/sign-in', body);
   }
 
-  // refresh(body: {
-  //   email: string;
-  //   password: string;
-  // }) {
-  //   return this.httpClient.post(this.env.apiUrl + 'api/auth/refresh', body);
-  // }
-
   getUserData() {
     return this.httpClient.get(this.env.apiUrl + 'api/user');
   }
 
   getToken() {
     return this.httpClient.get(this.env.apiUrl + 'api/token');
+  }
+
+  addBook(body: {
+    title: string;
+    author: string;
+    published: string;
+    genre: string;
+    description: string;
+    img: string;
+    link: string;
+    created: Date;
+    modified: Date;
+  }) {
+    return this.httpClient.post(this.env.apiUrl + 'api/books', body);
   }
 
   getBooks(params?: {

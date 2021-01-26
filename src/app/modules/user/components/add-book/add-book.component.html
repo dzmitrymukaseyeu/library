@@ -3,6 +3,8 @@
     action="#"
     name="editText"
     class="f-addBook"
+    [formGroup]= "addBookForm"
+    (submit)= "addBookSubmit($event)"
   >
     <mat-form-field class="f-addBook__title">
       <mat-label>Title</mat-label>
@@ -13,6 +15,9 @@
         matInput
         placeholder="Title"
       >
+      <mat-error *ngIf="addBookForm.controls.title.hasError('required')">
+        Title is <strong>required</strong>
+      </mat-error>
     </mat-form-field>
     <mat-form-field class="f-addBook__title">
       <mat-label>Author</mat-label>
@@ -23,16 +28,21 @@
         matInput
         placeholder="Author"
       >
+      <mat-error *ngIf="addBookForm.controls.author.hasError('required')">
+        Author is <strong>required</strong>
+      </mat-error>
     </mat-form-field>
-    <mat-form-field class="f-addBook__title">
+    <mat-form-field appearance="fill">
       <mat-label>Genre</mat-label>
-      <input
-        type="text"
-        name="genre"
+      <mat-select
         formControlName="genre"
-        matInput
-        placeholder="Genre"
       >
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let genre of bookGenres" [value]="genre">
+          {{genre}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="addBookForm.controls.genre.hasError('required')">Please choose genre</mat-error>
     </mat-form-field>
     <mat-form-field class="f-addBook__title">
       <mat-label>Description</mat-label>
@@ -44,6 +54,9 @@
         placeholder="Description"
       >
       </textarea>
+      <mat-error *ngIf="addBookForm.controls.description.hasError('required')">
+        Description is <strong>required</strong>
+      </mat-error>
     </mat-form-field>
     <mat-form-field class="f-addBook__title">
       <mat-label>Publication Date</mat-label>
@@ -55,6 +68,9 @@
         placeholder="Publication Date"
       >
     </mat-form-field>
+    <mat-error *ngIf="addBookForm.controls.published.hasError('required')">
+      Publication Date is <strong>required</strong>
+    </mat-error>
     <mat-form-field class="f-addBook__title">
       <mat-label>Link</mat-label>
       <input
@@ -64,16 +80,22 @@
         matInput
         placeholder="Link"
       >
+      <mat-error *ngIf="addBookForm.controls.link.hasError('required')">
+        Link is <strong>required</strong>
+      </mat-error>
     </mat-form-field>
     <mat-form-field class="f-addBook__title">
       <mat-label>Image</mat-label>
       <input
         type="text"
-        name="image"
-        formControlName="image"
+        name="img"
+        formControlName="img"
         matInput
         placeholder="Image"
       >
+      <mat-error *ngIf="addBookForm.controls.img.hasError('required')">
+        Image is <strong>required</strong>
+      </mat-error>
     </mat-form-field>
     <button
       mat-raised-button

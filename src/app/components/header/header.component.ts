@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
     this.userService.userData$.next(null);
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('accessToken');
-    this.router.navigate([' ']);
+    this.router.navigate(['/']);
   }
 
 }
