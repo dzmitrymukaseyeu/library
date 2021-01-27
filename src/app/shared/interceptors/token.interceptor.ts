@@ -16,9 +16,14 @@ export class TokenInterceptor implements HttpInterceptor {
     let token = null;
 
     this.tokenService.tokenData$
-    .subscribe((res: TokenDefinition) => token = res.accessToken);
+    .subscribe((res: TokenDefinition) => token = res?.accessToken);
 
-    if (req.url.includes('api/user') || (req.url.includes('api/books') && req.method !== 'GET') || req.url.includes('api/favorites')) {
+    if (
+      token
+      && req.url.includes('api/user')
+      || (req.url.includes('api/books') && req.method !== 'GET')
+      || req.url.includes('api/favorites')
+    ) {
       newReq = req.clone({
         setHeaders: {
           Authorization: 'Bearer ' + token

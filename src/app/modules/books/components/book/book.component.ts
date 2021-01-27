@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { ResBookDefinition, BookDefinition } from './../../../../shared/interfaces';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ObjectId } from 'mongoose';
 import { ApiService, UserService } from './../../../../services';
 
 
@@ -12,7 +11,7 @@ import { ApiService, UserService } from './../../../../services';
 })
 export class BookComponent implements OnInit {
   @Input() book: BookDefinition;
-  @Output() delbook = new EventEmitter<any>() ;
+  @Output() delbook = new EventEmitter<any>();
   editText: boolean = true;
   bookEditForm: FormGroup;
   likeState = false;
@@ -37,7 +36,7 @@ export class BookComponent implements OnInit {
       description: [this.book.description, [
         Validators.required
       ]],
-      published: [this.book.published, [
+      published: [new Date(this.book.published).toISOString().split('T')[0], [
         Validators.required
       ]],
       link: [this.book.link, [
@@ -55,26 +54,27 @@ export class BookComponent implements OnInit {
 
   updateBook(id: string) {
     const bookInfo = this.bookEditForm.value;
+    // this.bookEditForm.patchValue({published: new Date(this.bookEditForm.value.published)});
+
     const bookUpdateData = {
       id,
       update: bookInfo
     }
 
     this.apiService.updateBooks(bookUpdateData)
-    .subscribe((res:ResBookDefinition) => {
-      this.book.title = res.content.title;
-      this.book.author = res.content.author;
-      this.book.genre = res.content.genre;
-      this.book.description = res.content.description;
-      this.book.published = res.content.published;
-      this.book.link = res.content.link;
-    });
+      .subscribe((res:ResBookDefinition) => {
+        if (!res?.content) {
+          return;
+        }
+
+        this.book = res.content;
+      });
+
     this.editText = true;
   }
 
   onEditBook() {
     this.editText = !this.editText;
-    console.log(this.editText);
   }
 
   onDeleteBook(id: string) {

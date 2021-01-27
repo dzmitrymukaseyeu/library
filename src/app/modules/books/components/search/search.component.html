@@ -8,28 +8,34 @@
   <input
     type="text"
     name="title"
+    class="f-searchBook__title"
     formControlName="title"
     matInput
-    placeholder="Title"
+    placeholder="Search by title"
   >
-  <mat-form-field appearance="fill">
+  <mat-form-field
+    appearance="fill"
+    class="f-searchBook__genre"
+  >
     <mat-label>Select a genre</mat-label>
     <mat-select
       type="text"
       name="genre"
       formControlName="genre"
+      [(value)]="selectedGenre"
     >
-      <mat-option *ngFor="let genre of bookGenres" [value]="genre">
+      <mat-option [value]="genre" *ngFor="let genre of bookGenres">
         {{genre}}
       </mat-option>
     </mat-select>
   </mat-form-field>
   <button
     mat-raised-button
-    color="warn"
+    color="primary"
     type="submit"
-    class="f-addBook__btn"
+    class="f-searchBook__btn"
   >
-    Save
+    <mat-icon>search</mat-icon>
+    <span>Search</span>
   </button>
 </form>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserDefinition } from './../../shared/interfaces';
-import { UserService } from './../../services';
+import { UserService, TokenService} from './../../services';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,16 +13,16 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     public userService: UserService,
+    private tokenService: TokenService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    // this.userService.userData$
-    //   .subscribe(res => this.userData = res);
   }
 
   onLogOut() {
     this.userService.userData$.next(null);
+    this.tokenService.tokenData$.next(null);
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('accessToken');
     this.router.navigate(['/']);

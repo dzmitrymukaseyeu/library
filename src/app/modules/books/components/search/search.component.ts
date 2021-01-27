@@ -1,7 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from '../../../../services';
 import { Router } from '@angular/router';
+import { ResBooksDefinition } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'app-search',
@@ -9,6 +15,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
+  @Output() filteredBooks = new EventEmitter<any>();
   searchBookForm: FormGroup;
   bookGenres: string[] = [
     'All genres',
@@ -18,6 +25,8 @@ export class SearchComponent implements OnInit {
     'IT',
     'Education'
   ]
+
+  selectedGenre = this.bookGenres[0];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,8 +52,9 @@ export class SearchComponent implements OnInit {
     console.log(bookInfo);
 
     this.apiService.getBooks(bookInfo)
-    .subscribe((res) => {
-      console.log(res);
+    .subscribe((res: ResBooksDefinition) => {
+      console.log(res.content);
+      this.filteredBooks.emit(res.content);
     });
   }
 

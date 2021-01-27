@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService, UserService, TokenService } from '../../../../services';
 import { ResUserDefinition } from '../../../../../app/shared/interfaces';
 
-import { from, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -59,6 +59,10 @@ export class SignInComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.complete();
+  }
+
+  multiply(x:number, y: number):number {
+    return x*y;
   }
 
 }

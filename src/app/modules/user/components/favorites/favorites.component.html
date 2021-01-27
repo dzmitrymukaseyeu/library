@@ -1,7 +1,7 @@
 <section class="s-favorites">
   <div class="container">
-    <mat-tab-group mat-align-tabs="start">
-      <mat-tab label="Add book">
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="Add book" *ngIf="(userService.userData$ | async).accessType === 3">
         <app-add-book></app-add-book>
       </mat-tab>
       <mat-tab label="Favorites">Content 2</mat-tab>

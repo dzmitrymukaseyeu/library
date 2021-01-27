@@ -2,15 +2,10 @@ const Books = require('../../database/models/Books');
 const responseSender = require('../../helpers/response-sender');
 
 const bookHandlerPost = async (req, res) => {
-  let bookInfo = req.body;
+  const book = new Books(req.body);
 
-  try {
-    const book = await Book.save(bookInfo);
-
-    responseSender(res, 200, 'Book has been updated!', book);
-  } catch (err) {
-    responseSender(err, 500, err.message);
-  }
+  await book.save();
+  responseSender(res, 200, 'Book has been created!', book);
 };
 
 module.exports = bookHandlerPost;

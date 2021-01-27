@@ -33,7 +33,7 @@ const BooksSchema = new Schema({
   created: {
     type: Date,
     default: Date.now,
-    required: true
+    required: true,
   },
   modified: {
     type: Date,

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from './../../../../services/api//api.service';
 import { ResBooksDefinition, BookDefinition } from './../../../../shared/interfaces';
 
+import { BehaviorSubject } from 'rxjs';
+
 @Component({
   selector: 'app-catalog',
   templateUrl: './catalog.component.html',
@@ -9,6 +11,8 @@ import { ResBooksDefinition, BookDefinition } from './../../../../shared/interfa
 })
 export class CatalogComponent implements OnInit {
   books: BookDefinition[] = [];
+  filteredBooks = new BehaviorSubject([]);
+
 
   constructor(
     private apiService: ApiService,
@@ -19,10 +23,15 @@ export class CatalogComponent implements OnInit {
     .subscribe((res: ResBooksDefinition) => {
       this.books = res.content;
       console.log(this.books);
+      this.filteredBooks.next(res.content);
     });
   }
 
   onDeleteBook(id: string){
     this.books = this.books.filter(book => book._id !== id);
+  }
+
+  onFilteredBooks(content: any) {
+    this.books = content;
   }
 }

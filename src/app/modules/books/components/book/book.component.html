@@ -32,7 +32,7 @@
         <p class="b-book__info-descrip">
           Description: <span>{{book.description}}</span>
         </p>
-        <p class="b-book__info-publush">Publication Date: <span>{{book.published}}</span></p>
+        <p class="b-book__info-publush">Publication Date: <span>{{book.published | date: 'dd.MM.yyyy'}}</span></p>
         <a
           mat-raised-button color="warn" href={{book.link}}
           target="_blank"
@@ -121,7 +121,24 @@
       </form>
     </div>
     <div class="b-book__btn">
-      <button mat-icon-button [matMenuTriggerFor]="menu" class="b-book__btn-link">
+      <button
+        mat-icon-button
+        color="warn"
+        aria-label="Example icon button with a heart icon"
+        title="Add to favorites"
+        class="b-book__btn-link"
+        (click)="toogleFavorite(book._id, likeState)"
+      >
+        <mat-icon>
+          {{likeState ? 'favorite' : 'favorite_border'}}
+        </mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        class="b-book__btn-link"
+        *ngIf="(userService.userData$ | async)?.accessType === 3"
+      >
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
@@ -144,18 +161,6 @@
           <span>Delete</span>
         </button>
       </mat-menu>
-      <button
-        mat-icon-button
-        color="warn"
-        aria-label="Example icon button with a heart icon"
-        title="Add to favorites"
-        class="b-book__btn-link"
-        (click)="toogleFavorite(book._id, likeState)"
-      >
-        <mat-icon>
-          {{likeState ? 'favorite' : 'favorite_border'}}
-        </mat-icon>
-      </button>
     </div>
   </mat-expansion-panel>
   <mat-expansion-panel
