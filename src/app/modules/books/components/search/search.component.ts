@@ -2,36 +2,38 @@ import {
   Component,
   OnInit,
   Output,
-  EventEmitter
+  EventEmitter,
+  OnDestroy
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+
 import { ApiService } from '../../../../services';
-import { Router } from '@angular/router';
-import { ResBooksDefinition } from 'src/app/shared/interfaces';
+import { ResBooksDefinition } from '../../../../shared/interfaces';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   @Output() filteredBooks = new EventEmitter<any>();
+  destroy$ = new Subject();
   searchBookForm: FormGroup;
-  bookGenres: string[] = [
-    'All genres',
-    'Biography',
-    'Crime',
-    'Fiction',
-    'IT',
-    'Education'
-  ]
-
-  selectedGenre = this.bookGenres[0];
+  bookGenres: {value: string, viewValue: string}[] = [
+    {value: 'null', viewValue: 'All genre'},
+    {value: 'Biography', viewValue: 'Biography'},
+    {value: 'Crime', viewValue: 'Crime'},
+    {value: 'Fiction', viewValue: 'Fiction'},
+    {value: 'IT', viewValue: 'IT'},
+    {value: 'Education', viewValue: 'Education'},
+  ];
+  selectedGenre = this.bookGenres[0].value;
 
   constructor(
     private formBuilder: FormBuilder,
-    private apiService: ApiService,
-    private router: Router
+    private apiService: ApiService
   ) { }
 
   ngOnInit(): void {
@@ -40,7 +42,7 @@ export class SearchComponent implements OnInit {
         Validators.required,
         Validators.pattern(/^[A-Z -]+$/i)
       ]],
-      genre: [null, [
+      genre: [this.selectedGenre, [
         Validators.required,
       ]]
     })
@@ -49,13 +51,18 @@ export class SearchComponent implements OnInit {
   searchBookSubmit(event: Event) {
     event.preventDefault();
     const bookInfo = this.searchBookForm.value;
-    console.log(bookInfo);
 
     this.apiService.getBooks(bookInfo)
-    .subscribe((res: ResBooksDefinition) => {
-      console.log(res.content);
-      this.filteredBooks.emit(res.content);
-    });
+      .pipe(
+        takeUntil(this.destroy$)
+      )
+      .subscribe((res: ResBooksDefinition) => {
+        this.filteredBooks.emit(res.content);
+      });
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
+  }
 }

@@ -7,7 +7,7 @@
     (submit)= "addBookSubmit($event)"
   >
     <h2>Add book</h2>
-    <mat-form-field class="f-addBook__title">
+    <mat-form-field class="f-addBook__field">
       <mat-label>Title</mat-label>
       <input
         type="text"
@@ -20,7 +20,7 @@
         Title is <strong>required</strong>
       </mat-error>
     </mat-form-field>
-    <mat-form-field class="f-addBook__title">
+    <mat-form-field class="f-addBook__field">
       <mat-label>Author</mat-label>
       <input
         type="text"
@@ -33,19 +33,18 @@
         Author is <strong>required</strong>
       </mat-error>
     </mat-form-field>
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" class="f-addBook__field">
       <mat-label>Genre</mat-label>
       <mat-select
         formControlName="genre"
       >
-        <mat-option>--</mat-option>
         <mat-option *ngFor="let genre of bookGenres" [value]="genre">
           {{genre}}
         </mat-option>
       </mat-select>
       <mat-error *ngIf="addBookForm.controls.genre.hasError('required')">Please choose genre</mat-error>
     </mat-form-field>
-    <mat-form-field class="f-addBook__title">
+    <mat-form-field class="f-addBook__field">
       <mat-label>Description</mat-label>
       <textarea
         type="text"
@@ -59,7 +58,7 @@
         Description is <strong>required</strong>
       </mat-error>
     </mat-form-field>
-    <mat-form-field class="f-addBook__title">
+    <mat-form-field class="f-addBook__field">
       <mat-label>Publication Date</mat-label>
       <input
         type="date"
@@ -72,7 +71,7 @@
     <mat-error *ngIf="addBookForm.controls.published.hasError('required')">
       Publication Date is <strong>required</strong>
     </mat-error>
-    <mat-form-field class="f-addBook__title">
+    <mat-form-field class="f-addBook__field">
       <mat-label>Link</mat-label>
       <input
         type="text"
@@ -85,7 +84,7 @@
         Link is <strong>required</strong>
       </mat-error>
     </mat-form-field>
-    <mat-form-field class="f-addBook__title">
+    <mat-form-field class="f-addBook__field">
       <mat-label>Image</mat-label>
       <input
         type="text"

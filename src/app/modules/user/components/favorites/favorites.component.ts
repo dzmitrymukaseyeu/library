@@ -9,7 +9,7 @@ import { UserService } from './../../../../services';
 export class FavoritesComponent implements OnInit {
 
   constructor(
-    protected userService: UserService
+    public userService: UserService
   ) { }
 
   ngOnInit(): void {

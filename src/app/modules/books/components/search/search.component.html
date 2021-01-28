@@ -24,8 +24,8 @@
       formControlName="genre"
       [(value)]="selectedGenre"
     >
-      <mat-option [value]="genre" *ngFor="let genre of bookGenres">
-        {{genre}}
+      <mat-option [value]="genre.value" *ngFor="let genre of bookGenres">
+        {{genre.viewValue}}
       </mat-option>
     </mat-select>
   </mat-form-field>
