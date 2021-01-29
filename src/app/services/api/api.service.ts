@@ -87,4 +87,10 @@ export class ApiService {
   }) {
     return this.httpClient.post(this.env.apiUrl + 'api/favorites', body)
   }
+
+  getFavoriteBooks(params: {
+    favoriteBooks: string
+  }) {
+    return this.httpClient.get(this.env.apiUrl + 'api/favorites', { params })
+  }
 }

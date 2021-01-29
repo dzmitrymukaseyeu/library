@@ -18,12 +18,8 @@ const booksHandlerGet = async (req, res) => {
     }
   }
 
-  console.log(params);
   try {
-    // const books = await Books.find({'title': {'$regex': params.title}})
     const books = await Books.find(params).select('-__v');
-
-    console.log(books);
 
     responseSender(res, 200, 'Got it!', books);
   } catch (err) {

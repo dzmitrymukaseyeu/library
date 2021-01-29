@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ApiService } from '../../../../services';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { formatDate } from '@angular/common';
+
+import { ApiService } from '../../../../services';
+import { ResBookDefinition } from '../../../../shared/interfaces';
+
 
 @Component({
   selector: 'app-add-book',
   templateUrl: './add-book.component.html',
   styleUrls: ['./add-book.component.scss']
 })
-export class AddBookComponent implements OnInit {
+export class AddBookComponent implements OnInit, OnDestroy {
+  destroy$ = new Subject();
   addBookForm: FormGroup;
   bookGenres: string[] = [
     'Biography',
@@ -19,8 +24,6 @@ export class AddBookComponent implements OnInit {
     'Education'
   ];
 
-
-
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
@@ -28,13 +31,6 @@ export class AddBookComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let options = {
-      year: 'numeric',
-      month: 'numeric',
-      day: 'numeric',
-      timezone: 'UTC'
-    };
-
     this.addBookForm = this.formBuilder.group({
       title: [null, [
         Validators.required,
@@ -50,7 +46,7 @@ export class AddBookComponent implements OnInit {
       description: [null, [
         Validators.required,
       ]],
-      published: [new Date().toLocaleString("ru", options), [
+      published: [new Date().toISOString().split('T')[0], [
         Validators.required,
       ]],
       link: [null, [
@@ -68,15 +64,18 @@ export class AddBookComponent implements OnInit {
     event.preventDefault();
     const bookInfo = this.addBookForm.value;
 
-    this.addBookForm.value.published = `${this.addBookForm.value.published}T00:00:00.000+00:00`
-    console.log(this.addBookForm.value.published);
-
     this.apiService.addBook(bookInfo)
-    .subscribe((res) => {
-      console.log(res);
-      this.router.navigate(['/books']);
-      this.addBookForm.reset();
-    });
+      .pipe(
+        takeUntil(this.destroy$)
+      )
+      .subscribe((res: ResBookDefinition) => {
+        this.router.navigate(['/books']);
+        this.addBookForm.reset();
+      });
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
+  }
 }

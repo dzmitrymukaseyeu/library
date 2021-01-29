@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddBookComponent } from './components/add-book/add-book.component';
+import { SharedModule } from './../../shared/shared.module'
 
 @NgModule({
   declarations: [FavoritesComponent, AddBookComponent],
@@ -22,7 +23,8 @@ import { AddBookComponent } from './components/add-book/add-book.component';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
+    SharedModule
   ]
 })
 export class UserModule { }

@@ -137,7 +137,7 @@
         mat-icon-button
         [matMenuTriggerFor]="menu"
         class="b-book__btn-link"
-        *ngIf="(userService.userData$ | async)?.accessType === 3"
+        *ngIf="(userService.userData$ | async)?.accessType === 3 && isButtonVisible"
       >
         <mat-icon>more_vert</mat-icon>
       </button>

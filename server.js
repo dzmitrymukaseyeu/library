@@ -15,6 +15,7 @@ const booksHandlerGet = require('./BACKEND/api-routes/books/get');
 const booksHandlerDelete = require('./BACKEND/api-routes/books/delete');
 const booksHandlerPatch = require('./BACKEND/api-routes/books/patch');
 const favoritesHandlerPost = require('./BACKEND/api-routes/favorites/post');
+const favoritesHandlerGet = require('./BACKEND/api-routes/favorites/get');
 const bookHandlerPost = require('./BACKEND/api-routes/books/post');
 
 const UserSchema = require('./BACKEND/database/models/User');
@@ -54,6 +55,7 @@ app.post('/api/books', bookHandlerPost);
 
 // Favorites routes
 app.post('/api/favorites', favoritesHandlerPost)
+app.get('/api/favorites', favoritesHandlerGet);
 
 app.listen(PORT, () =>
     console.log('Server is running on port ' + PORT)

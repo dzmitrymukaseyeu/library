@@ -1,3 +1,9 @@
+.f-addBook::ng-deep {
+  .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: transparent;
+  }
+}
+
 .s-addBook {
   padding: 50px 0;
 }
@@ -13,6 +19,7 @@
     text-align: center;
     font-size: 20px;
   }
+
   &__field {
     display: block;
   }

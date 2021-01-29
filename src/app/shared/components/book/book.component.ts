@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { ResBookDefinition, BookDefinition } from './../../../../shared/interfaces';
+import { ResBookDefinition, BookDefinition } from '../../interfaces';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ApiService, UserService } from './../../../../services';
+import { ApiService, UserService } from '../../../services';
 
 
 @Component({
@@ -10,6 +10,7 @@ import { ApiService, UserService } from './../../../../services';
   styleUrls: ['./book.component.scss']
 })
 export class BookComponent implements OnInit {
+  @Input() isButtonVisible = true;
   @Input() book: BookDefinition;
   @Output() delbook = new EventEmitter<any>();
   editText: boolean = true;
