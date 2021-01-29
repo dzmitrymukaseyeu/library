@@ -1,4 +1,20 @@
-# Library
+# Ebook Library
+
+Angular Full Stack is a project to easly get started with the latest Angular using a real backend and database. Whole stack is in TypeScript, from frontend to backend, giving you the advantage to code in one single language throughout the all stack.
+
+This project uses the [MEAN stack](https://en.wikipedia.org/wiki/MEAN_(software_bundle)):
+* [**M**ongoose.js](http://www.mongoosejs.com) ([MongoDB](https://www.mongodb.com)): database
+* [**E**xpress.js](http://expressjs.com): backend framework
+* [**A**ngular 2+](https://angular.io): frontend framework
+* [**N**ode.js](https://nodejs.org): runtime environment
+
+Other tools and technologies used:
+* [Angular CLI](https://cli.angular.io): frontend scaffolding
+* [Bootstrap](http://www.getbootstrap.com): layout and styles
+* [Font Awesome](http://fontawesome.com): icons
+* [JSON Web Token](https://jwt.io): user authentication
+* [Angular 2 JWT](https://github.com/auth0/angular2-jwt): JWT helper for Angular 2+
+* [Bcrypt.js](https://github.com/dcodeIO/bcrypt.js): password encryption
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
 
