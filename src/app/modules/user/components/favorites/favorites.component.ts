@@ -12,7 +12,7 @@ import { BookDefinition, ResBooksDefinition, UserDefinition } from './../../../.
 export class FavoritesComponent implements OnInit, OnDestroy {
   isButtonVisible = false;
   books: BookDefinition[] = [];
-  destroy$ = new Subject();
+  private destroy$ = new Subject();
 
   constructor(
     public userService: UserService,
@@ -26,17 +26,16 @@ export class FavoritesComponent implements OnInit, OnDestroy {
       .pipe(
         mergeMap((res:UserDefinition) => {
           if (res && res.favoriteBooks) {
-            return this.apiService.getFavoriteBooks({favoriteBooks: JSON.stringify(res.favoriteBooks)})
+            return this.apiService
+              .getFavoriteBooks({favoriteBooks: JSON.stringify(res.favoriteBooks)})
               .pipe(
                 finalize(() => this.preloaderService.hide()),
                 takeUntil(this.destroy$),
-              )
+              );
           }
         })
       )
-      .subscribe((res: ResBooksDefinition) => {
-        this.books = res.content;
-      })
+      .subscribe((res: ResBooksDefinition) => this.books = res.content)
   }
 
   ngOnDestroy(): void {

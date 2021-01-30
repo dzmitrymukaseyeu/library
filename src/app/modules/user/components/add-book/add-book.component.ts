@@ -4,7 +4,6 @@ import { Subject } from 'rxjs';
 import { takeUntil, finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ApiService, PreloaderService } from '../../../../services';
-import { ResBookDefinition } from '../../../../shared/interfaces';
 
 
 @Component({
@@ -13,7 +12,7 @@ import { ResBookDefinition } from '../../../../shared/interfaces';
   styleUrls: ['./add-book.component.scss']
 })
 export class AddBookComponent implements OnInit, OnDestroy {
-  destroy$ = new Subject();
+  private destroy$ = new Subject();
   addBookForm: FormGroup;
   bookGenres: string[] = [
     'Biography',
@@ -70,7 +69,7 @@ export class AddBookComponent implements OnInit, OnDestroy {
         finalize(() => this.preloaderService.hide()),
         takeUntil(this.destroy$)
       )
-      .subscribe((res: ResBookDefinition) => {
+      .subscribe(() => {
         this.router.navigate(['/books']);
         this.addBookForm.reset();
       });

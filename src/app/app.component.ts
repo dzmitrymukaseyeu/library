@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TokenService, UserService, ApiService} from './services';
-import { UserDefinition, ResUserDefinition} from '../app/shared/interfaces';
+import { UserDefinition } from '../app/shared/interfaces';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -10,7 +10,6 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'library';
   private destroy$ = new Subject();
 
   constructor(
@@ -32,11 +31,20 @@ export class AppComponent implements OnInit, OnDestroy {
         .pipe (
           takeUntil(this.destroy$)
         )
-        .subscribe(({content} : {content:UserDefinition}) => this.userService.userData$.next(content));
+        .subscribe(
+          ({content} : {content:UserDefinition}) => this.userService.userData$.next(content),
+          ({error}) => {
+            if (error === 'jwt expired') {
+              localStorage.removeItem('accessToken');
+              localStorage.removeItem('refreshToken');
+              this.tokenService.tokenData$.next(null);
+            }
+          }
+          );
     }
   }
 
-    ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.complete();
   }

@@ -7,8 +7,8 @@ const favoritesHandlerPost = async (req, res) => {
     : {$addToSet:{favoriteBooks: req.body.id}};
 
   try {
-    const user = await User.findOneAndUpdate({_id: req.userId}, updateOptions, {new: true})
-    console.log(user);
+    const user = await User.findOneAndUpdate({_id: req.userId}, updateOptions, {new: true});
+
     responseSender(res, 200, 'Liked!', user);
   } catch (err) {
     responseSender(err, 500, err.message);

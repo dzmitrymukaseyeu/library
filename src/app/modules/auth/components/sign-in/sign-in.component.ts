@@ -18,13 +18,13 @@ import { takeUntil, finalize } from 'rxjs/operators';
 })
 export class SignInComponent implements OnInit, OnDestroy {
   signInForm: FormGroup;
-  destroy$ = new Subject();
+  private destroy$ = new Subject();
 
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
-    public userService: UserService,
-    public tokenService: TokenService,
+    protected userService: UserService,
+    protected tokenService: TokenService,
     private router: Router,
     private preloaderService: PreloaderService
   ) { }
@@ -42,7 +42,7 @@ export class SignInComponent implements OnInit, OnDestroy {
     })
   }
 
-  onsignInSubmit(event: Event) {
+  onSubmit(event: Event) {
     event.preventDefault();
     const userSignInValue = this.signInForm.value;
 

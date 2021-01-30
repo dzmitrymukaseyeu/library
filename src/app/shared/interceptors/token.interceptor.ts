@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { TokenService } from "./../../services/token/token.service";
 import { TokenDefinition } from './../interfaces/index';
 import { from, Observable } from 'rxjs';
 import { get } from 'http';
-import { catchError } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -33,18 +33,13 @@ export class TokenInterceptor implements HttpInterceptor {
     }
 
     return next.handle(newReq || req)
-      .pipe(catchError(err => {
-      if (err instanceof HttpErrorResponse) {
-          if (err.status === 401) {
-              console.log('this should print your error!', err.error);
+      .pipe(tap(
+        () => {},
+        (err) => {
+          if (err instanceof HttpErrorResponse) {
+            console.log(err)
           }
-
-          return new Observable<HttpEvent<any>>();
-      }
-}));
-
-
-
-
+        })
+      );
   }
 }

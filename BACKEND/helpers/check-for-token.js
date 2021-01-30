@@ -19,7 +19,7 @@ const checkForToken = (req, res, next) => {
       }
 
       if (err.message === 'jwt expired') {
-        return res.sendStatus(401);
+        return res.status(401).send(err.message);
       }
     }
   }

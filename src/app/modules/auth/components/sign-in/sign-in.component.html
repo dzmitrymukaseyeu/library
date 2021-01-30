@@ -1,15 +1,15 @@
-<section class="s-signIn">
+<section class="s-signin">
   <div class="container">
-    <div class="b-signIn">
+    <div class="b-signin">
       <form
         action="#"
         name="signIn"
-        class="f-signIn"
+        class="f-signin"
         [formGroup]="signInForm"
-        (submit)="onsignInSubmit($event)"
+        (submit)="onSubmit($event)"
       >
-        <h2 class="f-signIn__title">Log in to your account</h2>
-        <mat-form-field class="f-signIn__row">
+        <h2 class="f-signin__title">Log in to your account</h2>
+        <mat-form-field class="f-signin__row">
           <mat-label>E-mail address</mat-label>
           <input
             type="email"
@@ -25,7 +25,7 @@
             Enter correct e-mail
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="f-signIn__row">
+        <mat-form-field class="f-signin__row">
           <mat-label>Password</mat-label>
           <input
             type="password"
@@ -45,12 +45,12 @@
           mat-raised-button
           color="warn"
           type="submit"
-          class="f-signIn__btn"
+          class="f-signin__btn"
           [disabled] = "!this.signInForm.valid"
         >
           Log in
         </button>
-        <p class="f-signIn__link">
+        <p class="f-signin__link">
           Don't have an account?
           <a
             routerLinkActive="_active"

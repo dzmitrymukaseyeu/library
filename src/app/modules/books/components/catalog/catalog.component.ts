@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ApiService, PreloaderService } from './../../../../services';
+import { ApiService, PreloaderService, UserService } from './../../../../services';
 import { ResBooksDefinition, BookDefinition } from './../../../../shared/interfaces';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { finalize, takeUntil} from 'rxjs/operators'
@@ -16,28 +16,38 @@ export class CatalogComponent implements OnInit, OnDestroy {
 
   constructor(
     private apiService: ApiService,
-    private preloaderService: PreloaderService
+    private preloaderService: PreloaderService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
     this.preloaderService.show();
     this.apiService.getBooks()
-    .pipe(
-      finalize(() => this.preloaderService.hide()),
-      takeUntil(this.destroy$)
-    )
-    .subscribe((res: ResBooksDefinition) => {
-      this.books = res.content;
-      this.filteredBooks.next(res.content);
-    });
+      .pipe(
+        finalize(() => this.preloaderService.hide()),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((res: ResBooksDefinition) => {
+        this.books = res.content;
+        this.filteredBooks.next(res.content);
+      });
   }
 
-  onDeleteBook(id: string){
+  onDeleteBook(id: string) {
+    const userData = this.userService.userData$.value;
+
+    if (userData && userData.favoriteBooks) {
+      this.userService.userData$.next({
+        ...userData,
+        favoriteBooks: userData.favoriteBooks.filter(bookId => bookId !== id)
+      });
+    }
+
     this.books = this.books.filter(book => book._id !== id);
   }
 
-  onFilteredBooks(content: any) {
-    this.books = content;
+  onFilteredBooks(books: BookDefinition[]) {
+    this.books = books;
   }
 
   ngOnDestroy(): void {

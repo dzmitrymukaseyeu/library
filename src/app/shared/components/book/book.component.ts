@@ -22,15 +22,15 @@ export class BookComponent implements OnInit, OnDestroy {
   @Input() isButtonVisible = true;
   @Input() book: BookDefinition;
   @Output() delbook = new EventEmitter<any>();
-  editText: boolean = true;
+  editText = true;
   bookEditForm: FormGroup;
   likeState = false;
-  destroy$ = new Subject();
+  private destroy$ = new Subject();
 
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
-    public userService: UserService,
+    protected userService: UserService,
     private preloaderService: PreloaderService
   ) { }
 
@@ -56,12 +56,12 @@ export class BookComponent implements OnInit, OnDestroy {
       ]],
     });
 
-  this.userService.userData$
-    .subscribe(res => {
-      if (res) {
-        this.likeState = res.favoriteBooks.includes(this.book._id);
-      }
-    });
+    this.userService.userData$
+      .subscribe(res => {
+        if (res && res.favoriteBooks) {
+          this.likeState = res.favoriteBooks.includes(this.book._id);
+        }
+      });
   }
 
   updateBook(id: string) {
@@ -94,10 +94,7 @@ export class BookComponent implements OnInit, OnDestroy {
         finalize(() => this.preloaderService.hide()),
         takeUntil(this.destroy$)
       )
-      .subscribe((res => {
-        console.log(res)
-      }))
-      this.delbook.emit(id)
+      .subscribe(() => this.delbook.emit(id))
   }
 
   toogleFavorite(id: string, state: boolean) {
@@ -107,9 +104,7 @@ export class BookComponent implements OnInit, OnDestroy {
         finalize(() => this.preloaderService.hide()),
         takeUntil(this.destroy$)
       )
-      .subscribe(((res:ResUserDataDefinition) => {
-        this.userService.userData$.next(res.content);
-      }))
+      .subscribe(((res:ResUserDataDefinition) => this.userService.userData$.next(res.content)))
   }
 
   ngOnDestroy(): void {

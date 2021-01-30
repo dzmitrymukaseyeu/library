@@ -36,9 +36,10 @@
     <mat-form-field appearance="fill" class="f-addBook__field">
       <mat-label>Genre</mat-label>
       <mat-select
+
         formControlName="genre"
       >
-        <mat-option *ngFor="let genre of bookGenres" [value]="genre">
+        <mat-option *ngFor="let genre of bookGenres" [value]="genre"         name="genre">
           {{genre}}
         </mat-option>
       </mat-select>

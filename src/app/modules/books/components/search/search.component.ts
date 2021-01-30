@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil, finalize } from 'rxjs/operators';
 import { ApiService, PreloaderService } from '../../../../services';
-import { ResBooksDefinition } from '../../../../shared/interfaces';
+import { BookDefinition, ResBooksDefinition } from '../../../../shared/interfaces';
 
 @Component({
   selector: 'app-search',
@@ -18,11 +18,11 @@ import { ResBooksDefinition } from '../../../../shared/interfaces';
 })
 
 export class SearchComponent implements OnInit, OnDestroy {
-  @Output() filteredBooks = new EventEmitter<any>();
-  destroy$ = new Subject();
-  searchBookForm: FormGroup;
+  @Output() filteredBooks = new EventEmitter<BookDefinition[]>();
+  private destroy$ = new Subject();
+  protected searchBookForm: FormGroup;
   bookGenres: {value: string, viewValue: string}[] = [
-    {value: 'null', viewValue: 'All genre'},
+    {value: 'null', viewValue: 'Any genre'},
     {value: 'Biography', viewValue: 'Biography'},
     {value: 'Crime', viewValue: 'Crime'},
     {value: 'Fiction', viewValue: 'Fiction'},
@@ -59,9 +59,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         finalize(() => this.preloaderService.hide()),
         takeUntil(this.destroy$)
       )
-      .subscribe((res: ResBooksDefinition) => {
-        this.filteredBooks.emit(res.content);
-      });
+      .subscribe((res: ResBooksDefinition) => this.filteredBooks.emit(res.content));
   }
 
   ngOnDestroy(): void {

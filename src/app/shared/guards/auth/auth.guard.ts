@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { get } from 'http';
-import { from, Observable, of, forkJoin } from 'rxjs';
-import { skip } from 'rxjs/operators';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { of } from 'rxjs';
 import { switchMap, catchError } from 'rxjs/operators';
 import { UserService, ApiService } from './../../../services/index';
-import { UserDefinition } from './../../interfaces';
+import { UserDefinition, ResUserDataDefinition } from './../../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -23,21 +21,21 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ){
-    // return this.userService.userData$.pipe(switchMap(data => of(!!data))
 
     return this.userService.userData$
       .pipe(
         switchMap(data => {
-          if(!data) {
-            return this.apiService.getUserData().pipe(catchError(()=> of(false)));
+          if (!data) {
+            return this.apiService.getUserData().pipe(
+              switchMap((res: ResUserDataDefinition) => of(!!res?.content?.firstName)),
+              catchError(()=> of(false))
+            );
           }
 
           return of(true);
         }),
-        switchMap(data => {
-          console.log(data);
-          // @ts-ignore
-          if(data === true || data?.content?.firstName) {
+        switchMap((data: boolean) => {
+          if (data) {
             return of(true);
           }
 

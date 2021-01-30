@@ -62,10 +62,4 @@ describe('SignInComponent', () => {
     form.controls.password.setValue('12345')
     expect(form.valid).toBeTrue();
   });
-
-  it('should 4', () => {
-    const result = component.multiply(3,4);
-
-    expect(result).toBe(12);
-  });
 });
