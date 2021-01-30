@@ -6,10 +6,9 @@ import {
   OnDestroy
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-
-import { ApiService } from '../../../../services';
+import { takeUntil, finalize } from 'rxjs/operators';
+import { ApiService, PreloaderService } from '../../../../services';
 import { ResBooksDefinition } from '../../../../shared/interfaces';
 
 @Component({
@@ -34,7 +33,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private preloaderService: PreloaderService
   ) { }
 
   ngOnInit(): void {
@@ -53,8 +53,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     event.preventDefault();
     const bookInfo = this.searchBookForm.value;
 
+    this.preloaderService.show()
     this.apiService.getBooks(bookInfo)
       .pipe(
+        finalize(() => this.preloaderService.hide()),
         takeUntil(this.destroy$)
       )
       .subscribe((res: ResBooksDefinition) => {

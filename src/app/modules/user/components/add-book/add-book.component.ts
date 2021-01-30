@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil, finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
-import { ApiService } from '../../../../services';
+import { ApiService, PreloaderService } from '../../../../services';
 import { ResBookDefinition } from '../../../../shared/interfaces';
 
 
@@ -27,7 +26,8 @@ export class AddBookComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private preloaderService: PreloaderService
   ) { }
 
   ngOnInit(): void {
@@ -64,8 +64,10 @@ export class AddBookComponent implements OnInit, OnDestroy {
     event.preventDefault();
     const bookInfo = this.addBookForm.value;
 
+    this.preloaderService.show()
     this.apiService.addBook(bookInfo)
       .pipe(
+        finalize(() => this.preloaderService.hide()),
         takeUntil(this.destroy$)
       )
       .subscribe((res: ResBookDefinition) => {

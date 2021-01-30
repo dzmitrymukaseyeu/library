@@ -1,20 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ApiService } from '../../../../services';
+import { ApiService, PreloaderService } from '../../../../services';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { finalize, takeUntil} from 'rxjs/operators'
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
-export class SignUpComponent implements OnInit {
-  signUpForm: FormGroup
+export class SignUpComponent implements OnInit, OnDestroy {
+  signUpForm: FormGroup;
+  destroy$ = new Subject();
 
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private preloaderService: PreloaderService
   ) { }
 
   ngOnInit(): void {
@@ -42,11 +46,20 @@ export class SignUpComponent implements OnInit {
     event.preventDefault();
     const userInfo = this.signUpForm.value;
 
+    this.preloaderService.show();
     this.apiService.signUp(userInfo)
-    .subscribe((res) => {
-      console.log(res);
-      this.router.navigate(['/auth/sign-in']);
-      this.signUpForm.reset();
-    });
+      .pipe(
+        finalize(() => this.preloaderService.hide()),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(() => {
+        this.router.navigate(['/auth/sign-in']);
+        this.signUpForm.reset();
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 }

@@ -25,6 +25,10 @@ export interface ResBookDefinition extends ResDefinition {
   content: BookDefinition;
 }
 
+export interface ResUserDataDefinition extends ResDefinition {
+  content: UserDefinition;
+}
+
 
 
 // export interface ResEventPageDefinition extends ResDefinition {

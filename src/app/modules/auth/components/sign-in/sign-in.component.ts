@@ -1,11 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ApiService, UserService, TokenService } from '../../../../services';
+import {
+  ApiService,
+  UserService,
+  TokenService,
+  PreloaderService
+} from '../../../../services';
 import { ResUserDefinition } from '../../../../../app/shared/interfaces';
-
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sign-in',
@@ -21,7 +25,8 @@ export class SignInComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     public userService: UserService,
     public tokenService: TokenService,
-    private router: Router
+    private router: Router,
+    private preloaderService: PreloaderService
   ) { }
 
   ngOnInit(): void {
@@ -42,6 +47,10 @@ export class SignInComponent implements OnInit, OnDestroy {
     const userSignInValue = this.signInForm.value;
 
     this.apiService.signIn(userSignInValue)
+      .pipe(
+        finalize(() => this.preloaderService.hide()),
+        takeUntil(this.destroy$)
+      )
       .subscribe((res: ResUserDefinition) => {
         localStorage.setItem('accessToken', res.content.token.accessToken);
         localStorage.setItem('refreshToken', res.content.token.refreshToken);
@@ -60,9 +69,4 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.destroy$.next(true);
     this.destroy$.complete();
   }
-
-  multiply(x:number, y: number):number {
-    return x*y;
-  }
-
 }
