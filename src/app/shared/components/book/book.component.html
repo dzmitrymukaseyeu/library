@@ -128,6 +128,7 @@
         title="Add to favorites"
         class="b-book__btn-link"
         (click)="toogleFavorite(book._id, likeState)"
+        *ngIf="(userService.userData$ | async) && isButtonVisible"
       >
         <mat-icon>
           {{likeState ? 'favorite' : 'favorite_border'}}

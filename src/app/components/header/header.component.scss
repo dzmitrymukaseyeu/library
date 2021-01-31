@@ -6,9 +6,10 @@
 }
 
 .l-nav {
-  &__item + &__item {
-    margin-left: 100px;
-  }
+  display: flex;
+  justify-content: space-between;
+  flex-basis: 100%;
+  max-width: 200px;
 }
 
 .b-auth {

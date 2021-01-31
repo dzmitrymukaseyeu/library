@@ -30,7 +30,7 @@ export class BookComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
-    protected userService: UserService,
+    public userService: UserService,
     private preloaderService: PreloaderService
   ) { }
 

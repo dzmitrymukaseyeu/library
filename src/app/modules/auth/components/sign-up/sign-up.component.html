@@ -1,15 +1,15 @@
-<section class="s-signUp">
+<section class="s-signup">
   <div class="container">
-    <div class="b-signUp">
+    <div class="b-signup">
       <form
         action="#"
         name="signUp"
-        class="f-signUp"
+        class="f-signup"
         [formGroup]="signUpForm"
         (submit)="onSubmit($event)"
       >
-        <h2 class="f-signUp__title">Create your account</h2>
-        <mat-form-field class="f-signUp__row">
+        <h2 class="f-signup__title">Create your account</h2>
+        <mat-form-field class="f-signup__row">
           <mat-label>First Name</mat-label>
           <input
             type="text"
@@ -22,7 +22,7 @@
             First Name is <strong>required</strong>
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="f-signUp__row">
+        <mat-form-field class="f-signup__row">
           <mat-label>Last Name</mat-label>
           <input
             type="text"
@@ -35,7 +35,7 @@
             Last Name is <strong>required</strong>
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="f-signUp__row">
+        <mat-form-field class="f-signup__row">
           <mat-label>E-mail address</mat-label>
           <input
             type="email"
@@ -51,7 +51,7 @@
             Enter correct e-mail
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="f-signUp__row">
+        <mat-form-field class="f-signup__row">
           <mat-label>Password</mat-label>
           <input
             type="password"
@@ -71,12 +71,12 @@
           mat-raised-button
           color="warn"
           type="submit"
-          class="f-signUp__btn"
+          class="f-signup__btn"
           [disabled] = "!this.signUpForm.valid"
         >
           Register
         </button>
-        <p class="f-signUp__link">Have an account?
+        <p class="f-signup__link">Have an account?
           <a
             routerLinkActive="_active"
             [routerLinkActiveOptions]="{exact:true}"

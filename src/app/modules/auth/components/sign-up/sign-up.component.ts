@@ -42,7 +42,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     })
   }
 
-  onSignUpSubmit(event: Event) {
+  onSubmit(event: Event) {
     event.preventDefault();
     const userInfo = this.signUpForm.value;
 
