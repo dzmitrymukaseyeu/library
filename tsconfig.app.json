@@ -14,7 +14,7 @@
       ],
       "@app/shared/*": [
         "app/shared/*"
-      ],
+      ]
     }
   },
   "files": [

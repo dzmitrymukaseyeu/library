@@ -20,7 +20,7 @@ import { BookDefinition, ResBooksDefinition } from '../../../../shared/interface
 export class SearchComponent implements OnInit, OnDestroy {
   @Output() filteredBooks = new EventEmitter<BookDefinition[]>();
   private destroy$ = new Subject();
-  searchBookForm: FormGroup;
+  public searchBookForm: FormGroup;
   bookGenres: {value: string, viewValue: string}[] = [
     {value: 'null', viewValue: 'Any genre'},
     {value: 'Biography', viewValue: 'Biography'},

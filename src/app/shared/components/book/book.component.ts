@@ -8,10 +8,9 @@ import {
 } from '@angular/core';
 import { ResBookDefinition, BookDefinition, ResUserDataDefinition } from '../../interfaces';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ApiService, UserService, PreloaderService} from '../../../services';
+import { ApiService, UserService, PreloaderService } from '../../../services';
 import { Subject } from 'rxjs';
-import { finalize, takeUntil} from 'rxjs/operators'
-
+import { finalize, takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-book',
@@ -22,7 +21,7 @@ export class BookComponent implements OnInit, OnDestroy {
   @Input() isButtonVisible = true;
   @Input() book: BookDefinition;
   @Output() delbook = new EventEmitter<any>();
-  editText = true;
+  editMode = false;
   bookEditForm: FormGroup;
   likeState = false;
   private destroy$ = new Subject();
@@ -64,47 +63,51 @@ export class BookComponent implements OnInit, OnDestroy {
       });
   }
 
-  updateBook(id: string) {
+  updateBook(id: string): void {
     const bookInfo = this.bookEditForm.value;
     const bookUpdateData = {
       id,
       update: bookInfo
-    }
+    };
 
-    this.apiService.updateBooks(bookUpdateData)
-      .subscribe((res:ResBookDefinition) => {
+    this.preloaderService.show();
+    this.apiService.updateBook(bookUpdateData)
+      .pipe(
+        finalize(() => this.preloaderService.hide()),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((res: ResBookDefinition) => {
         if (!res?.content) {
           return;
         }
 
         this.book = res.content;
+        this.editMode = false;
       });
-
-    this.editText = true;
   }
 
-  onEditBook() {
-    this.editText = !this.editText;
+  onEditBook(): void {
+    this.editMode = !this.editMode;
   }
 
-  onDeleteBook(id: string) {
+  onDeleteBook(id: string): void {
     this.preloaderService.show();
     this.apiService.deleteBook({id})
       .pipe(
         finalize(() => this.preloaderService.hide()),
         takeUntil(this.destroy$)
       )
-      .subscribe(() => this.delbook.emit(id))
+      .subscribe(() => this.delbook.emit(id));
   }
 
-  toogleFavorite(id: string, state: boolean) {
+  toggleFavorite(id: string, state: boolean): void {
     this.preloaderService.show();
-    this.apiService.toogleFavorite({id, state})
+    this.apiService.toggleFavorite({id, state})
       .pipe(
         finalize(() => this.preloaderService.hide()),
         takeUntil(this.destroy$)
       )
-      .subscribe(((res:ResUserDataDefinition) => this.userService.userData$.next(res.content)))
+      .subscribe(((res: ResUserDataDefinition) => this.userService.userData$.next(res.content)));
   }
 
   ngOnDestroy(): void {

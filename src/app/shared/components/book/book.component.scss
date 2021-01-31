@@ -57,9 +57,8 @@
 .b-book__btn {
   display: flex;
   flex-direction: column;
-  // justify-content: space-between;
 
-  &-link:first-of-type {
+  &-like {
     margin-bottom: 30px;
   }
 }

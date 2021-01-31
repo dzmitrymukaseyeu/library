@@ -64,7 +64,7 @@ export class ApiService {
     return this.httpClient.delete(this.env.apiUrl + 'api/books', { params });
   }
 
-  updateBooks(body: {
+  updateBook(body: {
     id: string,
     update: {
       title?: string;
@@ -79,7 +79,7 @@ export class ApiService {
     return this.httpClient.patch(this.env.apiUrl + 'api/books', body);
   }
 
-  toogleFavorite(body: {
+  toggleFavorite(body: {
     id: string;
     state: boolean;
   }) {

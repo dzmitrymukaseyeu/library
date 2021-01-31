@@ -3,7 +3,7 @@
     <mat-expansion-panel-header>
       <div class="b-book__header">
         <div class="b-book__logo">
-          <img src={{book.img}} alt="barak">
+          <img [src]="book.img" [title]="book.title" [alt]="book.title">
         </div>
         <div class="b-book__content">
           <mat-panel-title class="b-book__content-title">
@@ -19,7 +19,7 @@
       </div>
     </mat-expansion-panel-header>
     <div class="b-book__wrapper">
-      <div class="b-book__info" *ngIf= "editText">
+      <div class="b-book__info" *ngIf= "!editMode">
         <p class="b-book__info-title">
           Title: <span>{{book.title}}</span>
         </p>
@@ -29,10 +29,10 @@
         <p class="b-book__info-genre">
           Genre: <span>{{book.genre}}</span>
         </p>
-        <p class="b-book__info-descrip">
+        <p class="b-book__info-describe">
           Description: <span>{{book.description}}</span>
         </p>
-        <p class="b-book__info-publush">Publication Date: <span>{{book.published | date: 'dd.MM.yyyy'}}</span></p>
+        <p class="b-book__info-publish">Publication Date: <span>{{book.published | date: 'dd.MM.yyyy'}}</span></p>
         <a
           mat-raised-button color="warn" href={{book.link}}
           target="_blank"
@@ -42,9 +42,9 @@
         </a>
       </div>
       <form
-        *ngIf= "!editText"
+        *ngIf= "editMode"
         action="#"
-        name="editText"
+        name="editbook"
         class="f-book"
         [formGroup] = "bookEditForm"
         (submit)="updateBook(book._id)"
@@ -124,11 +124,10 @@
       <button
         mat-icon-button
         color="warn"
-        aria-label="Example icon button with a heart icon"
-        title="Add to favorites"
-        class="b-book__btn-link"
-        (click)="toogleFavorite(book._id, likeState)"
-        *ngIf="(userService.userData$ | async) && isButtonVisible"
+        [title]="likeState ? 'Remove from favorites' : 'Add to favorites'"
+        class="b-book__btn-like"
+        (click)="toggleFavorite(book._id, likeState)"
+        *ngIf="(userService.userData$ | async)"
       >
         <mat-icon>
           {{likeState ? 'favorite' : 'favorite_border'}}
@@ -163,10 +162,5 @@
         </button>
       </mat-menu>
     </div>
-  </mat-expansion-panel>
-  <mat-expansion-panel
-    (opened)="editText = true"
-    (closed)="editText = false"
-  >
   </mat-expansion-panel>
 </mat-accordion>

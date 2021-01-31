@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PreloaderComponent } from './preloader.component';
 
-describe('PreloaderComponent', () => {
+xdescribe('PreloaderComponent', () => {
   let component: PreloaderComponent;
   let fixture: ComponentFixture<PreloaderComponent>;
 

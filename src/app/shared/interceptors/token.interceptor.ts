@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
-import { TokenService } from "./../../services/token/token.service";
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { TokenService } from '@app/services/token/token.service';
 import { TokenDefinition } from './../interfaces/index';
-import { from, Observable } from 'rxjs';
-import { get } from 'http';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor (
+  constructor(
     public tokenService: TokenService
   ) {}
 
