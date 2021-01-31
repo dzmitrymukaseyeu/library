@@ -2,15 +2,23 @@
   <div class="container">
     <mat-tab-group mat-align-tabs="center">
       <mat-tab label="Favorites">
-        <ul class="l-books">
-          <li *ngFor="let book of books" class="l-books-item">
-            <app-book
-              [book]= "book"
-              [isButtonVisible]="isButtonVisible"
-            >
-          </app-book>
-          </li>
-        </ul>
+        <div class="b-favorites">
+          <div
+            class="b-favorites__text"
+            *ngIf="!books.length"
+          >
+            Favorite books not added
+          </div>
+          <ul class="l-books">
+            <li *ngFor="let book of books" class="l-books-item">
+              <app-book
+                [book]= "book"
+                [isButtonVisible]="isButtonVisible"
+              >
+            </app-book>
+            </li>
+          </ul>
+          </div>
       </mat-tab>
       <mat-tab label="Add book" *ngIf="(userService.userData$ | async).accessType === 3">
         <app-add-book></app-add-book>

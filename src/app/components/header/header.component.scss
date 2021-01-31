@@ -10,6 +10,41 @@
   justify-content: space-between;
   flex-basis: 100%;
   max-width: 200px;
+
+  &__item {
+    &-link {
+      position: relative;
+      padding: 5px 0;
+
+      &::after {
+        position: absolute;
+        content: "";
+        height: 3px;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #3f51b5;
+        transition: transform 0.2s ease-out;
+        transform: scaleX(0);
+        transform-origin: 0;
+      }
+
+      &:hover::after {
+        transform: scaleX(1);
+      }
+
+      &._active::after {
+        position: absolute;
+        content: "";
+        height: 3px;
+        bottom: 0;
+        left: 0;
+        background-color: #3f51b5;
+        transform: scaleX(1);
+        transition: all 0.2s ease-in-out;
+      }
+    }
+  }
 }
 
 .b-auth {

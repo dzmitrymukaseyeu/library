@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { TokenService } from '@app/services/token/token.service';
+import { TokenService, ToastsService } from '@app/services';
 import { TokenDefinition } from './../interfaces/index';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -8,7 +8,8 @@ import { tap } from 'rxjs/operators';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   constructor(
-    public tokenService: TokenService
+    public tokenService: TokenService,
+    public toastsService: ToastsService
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -36,7 +37,8 @@ export class TokenInterceptor implements HttpInterceptor {
         () => {},
         (err) => {
           if (err instanceof HttpErrorResponse) {
-            console.log(err)
+            console.log(err.error.message);
+            this.toastsService.show(err.error.message);
           }
         })
       );

@@ -1,11 +1,12 @@
 .f-addBook::ng-deep {
   .mat-form-field-appearance-fill .mat-form-field-flex {
     background-color: transparent;
+    padding-left: 0;
   }
 }
 
 .s-addBook {
-  padding: 50px 0;
+  padding: 30px 0;
 }
 
 .f-addBook {

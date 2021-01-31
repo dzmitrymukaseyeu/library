@@ -8,6 +8,7 @@ import {
 } from './res';
 import { TokenDefinition } from './token';
 import { BookDefinition } from './book';
+import { ToastsDataDefinition } from './toasts';
 
 
 export {
@@ -18,5 +19,6 @@ export {
     BookDefinition,
     ResBookDefinition,
     ResBooksDefinition,
-    ResUserDataDefinition
+    ResUserDataDefinition,
+    ToastsDataDefinition
   }

@@ -19,6 +19,7 @@ import { HomeComponent } from './components/home/home.component';
 import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 import { HeaderComponent } from './components/header/header.component';
 import { PreloaderComponent } from './components/preloader/preloader/preloader.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { PreloaderComponent } from './components/preloader/preloader/preloader.c
     SharedModule,
     MatIconModule,
     MatBadgeModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ],
   providers: [ApiService, {
     provide: HTTP_INTERCEPTORS,

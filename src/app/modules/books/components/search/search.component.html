@@ -5,14 +5,27 @@
   [formGroup]="searchBookForm"
   (submit)="searchBookSubmit($event)"
 >
-  <input
-    type="text"
-    name="title"
-    class="f-searchBook__title"
-    formControlName="title"
-    matInput
-    placeholder="Search by title"
-  >
+  <mat-form-field class="f-searchBook__title">
+    <mat-label>Search by title</mat-label>
+    <input
+      type="text"
+      name="title"
+      formControlName="title"
+      matInput
+      placeholder="Enter title"
+      [(ngModel)]="value"
+    >
+    <button
+      mat-button
+      *ngIf="value"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="value=''"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
   <mat-form-field
     appearance="fill"
     class="f-searchBook__genre"

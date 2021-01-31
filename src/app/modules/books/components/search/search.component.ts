@@ -30,6 +30,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     {value: 'Education', viewValue: 'Education'},
   ];
   selectedGenre = this.bookGenres[0].value;
+  value = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,8 +40,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.searchBookForm = this.formBuilder.group({
-      title: [null, [
-        Validators.required,
+      title: [this.value, [
         Validators.pattern(/^[A-Z -]+$/i)
       ]],
       genre: [this.selectedGenre, [
@@ -53,6 +53,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     event.preventDefault();
     const bookInfo = this.searchBookForm.value;
 
+    console.log(bookInfo);
     this.preloaderService.show()
     this.apiService.getBooks(bookInfo)
       .pipe(

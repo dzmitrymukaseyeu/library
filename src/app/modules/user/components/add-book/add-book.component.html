@@ -86,13 +86,13 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field class="f-addBook__field">
-      <mat-label>Image</mat-label>
+      <mat-label>URL Image</mat-label>
       <input
         type="text"
         name="img"
         formControlName="img"
         matInput
-        placeholder="Image"
+        placeholder="Enter URL Image"
       >
       <mat-error *ngIf="addBookForm.controls.img.hasError('required')">
         Image is <strong>required</strong>
