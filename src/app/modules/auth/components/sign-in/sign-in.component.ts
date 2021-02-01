@@ -6,8 +6,8 @@ import {
   UserService,
   TokenService,
   PreloaderService
-} from '../../../../services';
-import { ResUserDefinition } from '../../../../../app/shared/interfaces';
+} from '@app/services';
+import { ResUserDefinition } from '@app/shared/interfaces';
 import { Subject } from 'rxjs';
 import { takeUntil, finalize } from 'rxjs/operators';
 

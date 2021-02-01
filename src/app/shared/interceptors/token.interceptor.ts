@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { TokenService, ToastsService } from '@app/services';
-import { TokenDefinition } from './../interfaces/index';
+import { TokenDefinition } from '@app/shared/interfaces';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 

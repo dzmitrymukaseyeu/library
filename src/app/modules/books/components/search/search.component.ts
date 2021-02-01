@@ -6,10 +6,11 @@ import {
   OnDestroy
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ApiService, PreloaderService } from '@app/services';
+import { BookDefinition, ResBooksDefinition } from '@app/shared/interfaces';
 import { Subject } from 'rxjs';
 import { takeUntil, finalize } from 'rxjs/operators';
-import { ApiService, PreloaderService } from '../../../../services';
-import { BookDefinition, ResBooksDefinition } from '../../../../shared/interfaces';
+
 
 @Component({
   selector: 'app-search',

@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { ToastsDataDefinition } from '@app/shared/interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({

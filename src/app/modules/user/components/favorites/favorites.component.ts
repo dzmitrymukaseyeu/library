@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { UserService, ApiService, PreloaderService } from '@app/services';
+import { BookDefinition, ResBooksDefinition, UserDefinition } from '@app/shared/interfaces';
 import { Subject } from 'rxjs';
 import { mergeMap, finalize, takeUntil } from 'rxjs/operators';
-import { UserService, ApiService, PreloaderService } from './../../../../services';
-import { BookDefinition, ResBooksDefinition, UserDefinition } from './../../../../shared/interfaces';
 
 @Component({
   selector: 'app-favorites',

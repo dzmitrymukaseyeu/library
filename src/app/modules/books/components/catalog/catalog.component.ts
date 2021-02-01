@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ApiService, PreloaderService, UserService } from './../../../../services';
-import { ResBooksDefinition, BookDefinition } from './../../../../shared/interfaces';
+import { ApiService, PreloaderService, UserService } from '@app/services';
+import { ResBooksDefinition, BookDefinition } from '@app/shared/interfaces';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { finalize, takeUntil} from 'rxjs/operators'
 

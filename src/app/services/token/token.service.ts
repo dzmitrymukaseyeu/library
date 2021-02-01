@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { TokenDefinition } from '@app/shared/interfaces';
 import { BehaviorSubject } from 'rxjs';
-import { TokenDefinition } from '../../shared/interfaces';
 
 @Injectable({
   providedIn: 'root'

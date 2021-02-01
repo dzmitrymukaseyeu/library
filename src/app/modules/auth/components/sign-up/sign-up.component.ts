@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ApiService, PreloaderService } from '../../../../services';
 import { Router } from '@angular/router';
+import { ApiService, PreloaderService } from '@app/services';
 import { Subject } from 'rxjs';
 import { finalize, takeUntil} from 'rxjs/operators'
 

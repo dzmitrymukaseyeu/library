@@ -6,9 +6,9 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import { ResBookDefinition, BookDefinition, ResUserDataDefinition } from '../../interfaces';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ApiService, UserService, PreloaderService } from '../../../services';
+import { ResBookDefinition, BookDefinition, ResUserDataDefinition } from '@app/shared/interfaces';
+import { ApiService, UserService, PreloaderService } from '@app/services';
 import { Subject } from 'rxjs';
 import { finalize, takeUntil} from 'rxjs/operators';
 
