@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserDefinition } from '@app/shared/interfaces';
 import { UserService, TokenService } from '@app/services';
@@ -10,6 +10,10 @@ import { UserService, TokenService } from '@app/services';
 })
 export class HeaderComponent implements OnInit {
   userData:UserDefinition = null;
+
+  @Output() public sidenavToggle = new EventEmitter();
+
+
 
   constructor(
     public userService: UserService,
@@ -28,4 +32,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
+  onToggleSidenav() {
+    this.sidenavToggle.emit();
+  }
 }

@@ -1,30 +1,37 @@
 <header class="header">
   <div class="container">
     <div class="header-content">
-      <ul class="l-nav">
-        <li class="l-nav__item">
-          <a
-            href="#"
-            class="l-nav__item-link"
-            routerLink=""
-            routerLinkActive="_active"
-            [routerLinkActiveOptions]="{exact:true}"
-          >
-            Home
-          </a>
-        </li>
-        <li class="l-nav__item">
-          <a
-            href="#"
-            class="l-nav__item-link"
-            routerLink="books"
-            routerLinkActive="_active"
-            [routerLinkActiveOptions]="{exact:true}"
-          >
-            Catalog
-          </a>
-        </li>
-      </ul>
+      <nav class="b-nav">
+        <div class="b-nav__menu">
+          <button mat-icon-button (click)="onToggleSidenav()">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </div>
+        <ul class="l-nav">
+          <li class="l-nav__item">
+            <a
+              href="#"
+              class="l-nav__item-link"
+              routerLink=""
+              routerLinkActive="_active"
+              [routerLinkActiveOptions]="{exact:true}"
+            >
+              Home
+            </a>
+          </li>
+          <li class="l-nav__item">
+            <a
+              href="#"
+              class="l-nav__item-link"
+              routerLink="books"
+              routerLinkActive="_active"
+              [routerLinkActiveOptions]="{exact:true}"
+            >
+              Catalog
+            </a>
+          </li>
+        </ul>
+      </nav>
       <div class="b-auth">
         <a
           href="#"
@@ -39,7 +46,7 @@
           class="b-auth__link"
         >
           <mat-icon matBadge="{{user.favoriteBooks.length}}" matBadgeColor="warn">person_outline</mat-icon>
-          <span class="b-auth__link-user">Hello, {{user.firstName}}</span>
+          <span class="b-auth__link-user">{{user.firstName}}</span>
         </a>
         <button
           type="button"

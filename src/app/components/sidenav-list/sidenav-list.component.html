@@ -1,0 +1,22 @@
+<mat-nav-list class="b-nav">
+  <a
+    class="b-nav__item"
+    mat-list-item
+    routerLink=""
+    (click)="onSidenavClose()"
+    routerLinkActive="_active"
+    [routerLinkActiveOptions]="{exact:true}"
+  >
+    <span>Home</span>
+  </a>
+  <a
+    class="b-nav__item"
+    mat-list-item
+    routerLink="books"
+    (click)="onSidenavClose()"
+    routerLinkActive="_active"
+    [routerLinkActiveOptions]="{exact:true}"
+  >
+  <span>Catalog</span>
+  </a>
+</mat-nav-list>

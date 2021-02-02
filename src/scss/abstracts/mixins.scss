@@ -1,0 +1,19 @@
+@import "abstracts/variables.scss";
+
+@mixin tabletXL() {
+  @media screen and (max-width: map-get($breakPoints, "tabletXL" )) {
+    @content;
+  }
+}
+
+@mixin tablet() {
+  @media screen and (max-width: map-get($breakPoints, "tablet" )) {
+    @content;
+  }
+}
+
+@mixin mobile() {
+  @media screen and (max-width: map-get($breakPoints, "mobile" )) {
+    @content;
+  }
+}

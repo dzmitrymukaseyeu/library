@@ -1,3 +1,5 @@
+@import "abstracts/mixins";
+
 .f-searchBook::ng-deep {
   .mat-form-field-appearance-fill .mat-form-field-flex {
     border-radius: 0;
@@ -28,13 +30,48 @@
     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 
   &__title {
-    width: 100%;
+    flex-basis: 70%;
     font-size: 16px;
     padding-left: 24px;
+  }
+
+  &__genre {
+    flex-basis: 30%;
   }
 
   &__btn {
     border-radius: 0 4px 4px 0;
     padding: 0 15px;
+  }
+}
+
+// @include tablet() {
+//   .f-searchBook {
+//     flex-wrap: wrap;
+
+//     &__genre {
+//       flex-basis: calc(100% - 100px);
+//     }
+//   }
+// }
+
+@include mobile() {
+  .f-searchBook {
+    flex-wrap: wrap;
+
+    &__title {
+      flex-basis: 100%;
+      padding-left: 12px;
+      box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%);
+    }
+
+    &__genre {
+      flex-basis: 100%;
+    }
+
+    &__btn {
+      flex-basis: 100%;
+      border-radius: 4px;
+    }
   }
 }

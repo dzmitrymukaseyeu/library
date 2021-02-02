@@ -7,7 +7,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
@@ -19,15 +23,15 @@ import { HomeComponent } from './components/home/home.component';
 import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 import { HeaderComponent } from './components/header/header.component';
 import { PreloaderComponent } from './components/preloader/preloader/preloader.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { SidenavListComponent } from './components/sidenav-list/sidenav-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    PreloaderComponent
+    PreloaderComponent,
+    SidenavListComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatIconModule,
     MatBadgeModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule
   ],
   providers: [ApiService, {
     provide: HTTP_INTERCEPTORS,

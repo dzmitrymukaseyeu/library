@@ -1,15 +1,25 @@
+@import "abstracts/mixins";
+
 .header-content {
   padding: 30px 0;
   display: flex;
   justify-content: space-between;
   font-size: 16px;
+  align-items: center;
+}
+
+.b-nav {
+  display: flex;
+
+  &__menu {
+    display: none;
+  }
 }
 
 .l-nav {
-  display: flex;
-  justify-content: space-between;
-  flex-basis: 100%;
-  max-width: 200px;
+  &__item + &__item {
+    margin-left: 100px;
+  }
 
   &__item {
     &-link {
@@ -66,5 +76,17 @@
 
   &__link + &__link {
     margin-left: 15px;
+  }
+}
+
+@include mobile() {
+  .l-nav {
+    display: none;
+  }
+
+  .b-nav {
+    &__menu {
+      display: block;
+    }
   }
 }
